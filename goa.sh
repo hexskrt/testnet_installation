@@ -74,7 +74,7 @@ rm -rf $SOURCE
 git clone $REPO
 cd $SOURCE
 git checkout $VERSION
-make build
+make build-alliance ACC_PREFIX=ordos
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 
 # Prepare binaries for Cosmovisor
