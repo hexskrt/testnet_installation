@@ -119,6 +119,10 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DENOM\"/" $HOME/$FOLDER/config/app.toml
 
+# Enable snapshots
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$FOLDER/config/app.toml
+curl -L https://snap-ordos.hexskrt.net/ordos-snapshot.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$FOLDER/
+
 # Create Service
 sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
 [Unit]
