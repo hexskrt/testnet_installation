@@ -76,7 +76,7 @@ $ORDOS config node tcp://localhost:${ORDOS_PORT}657
 $ORDOS init $ORDOS_NODENAME --chain-id $ORDOS_ID
 
 # Set peers and seeds
-PEERS="418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356"
+PEERS="6d26ed3f5ba59dde6bf45d56c1b2c5b00a214c09@185.219.142.32:01656,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356"
 SEEDS="1772a7a48530cc8adc447fdb7b720c064411667b@goa-seeds.lavenderfive.com:11656"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$ORDOS_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$ORDOS_FOLDER/config/config.toml
