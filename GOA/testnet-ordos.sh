@@ -34,7 +34,7 @@ source $HOME/.bash_profile
 
 # Set Vars
 if [ ! $ORDOS_NODENAME ]; then
-        read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR NODE] > " ORDOS_NODENAME
+        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODE] > " ORDOS_NODENAME
         echo 'export ORDOS_NODENAME='$ORDOS_NODENAME >> $HOME/.bash_profile
 fi
 echo ""
