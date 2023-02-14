@@ -14,9 +14,9 @@ sleep 1
 
 # Variable
 ANDRO_WALLET=wallet
-ANDRO=andromed
+ANDRO=andromedad
 ANDRO_ID=galileo-3
-ANDRO_FOLDER=.andromeda
+ANDRO_FOLDER=.andromedad
 ANDRO_VER=galileo-3-v1.1.0-beta1
 ANDRO_REPO=https://github.com/andromedaprotocol/andromedad.git
 ANDRO_DENOM=uandr
