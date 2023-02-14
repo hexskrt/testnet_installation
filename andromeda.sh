@@ -104,14 +104,9 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$ANDRO_DENOM\"
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$ANDRO_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$ANDRO_FOLDER/config/app.toml
 
-# Enable state sync
-$ANDRO tendermint unsafe-reset-all --home $HOME/$ANDRO_FOLDER
-
-SNAP_RPC="https://andromeda.rpc.yeksin.net:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+# Enable snapshots
+$ANDRO tendermint unsafe-reset-all --home $HOME/$ANDRO_FOLDER --keep-addr-book
+curl -L https://snapshot.yeksin.net/andromeda/data.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$ANDRO_FOLDER
 
 echo ""
 echo -e "\e[1m\e[31m[!]\e[0m HEIGHT : \e[1m\e[31m$LATEST_HEIGHT\e[0m BLOCK : \e[1m\e[31m$BLOCK_HEIGHT\e[0m HASH : \e[1m\e[31m$TRUST_HASH\e[0m"
