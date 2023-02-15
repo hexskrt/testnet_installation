@@ -35,7 +35,7 @@ sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/.ordos
 
 
 
-### Automatic Installer For Game Of Alliance Chain Id Ordos With COSMOVISOR (Custom Port 01)
+### Automatic Installer For Game Of Alliance Chain Id Ordos (Custom Port 01)
 You can setup your GOA Chain ID Ordos fullnode in few minutes by using automated script below.
 ```
 wget -O testnet-ordos.sh https://raw.githubusercontent.com/hexskrt/test/main/GOA/testnet-ordos.sh && chmod +x testnet-ordos.sh && ./testnet-ordos.sh
