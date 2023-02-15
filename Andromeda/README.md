@@ -4,6 +4,6 @@
 
 Andromeda is an application platform layer that connects all public blockchains in the Cosmos ecosystem. Through our vast library of no-code smart contracts, users can harness the power of web3.
 
-You find more information on link below:
+You can find all service public for Andromeda Protocl on links below:
 
-```https://www.hexskrt.net/testnet/andromeda```
+**https://www.hexskrt.net/testnet/andromeda**
