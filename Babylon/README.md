@@ -15,32 +15,7 @@ You can setup your Babylon fullnode in few minutes by using automated script bel
 ```
 wget -O babylon.sh https://raw.githubusercontent.com/hexskrt/test/main/Babylon/babylon.sh && chmod +x babylon.sh && ./babylon.sh
 ```
-### Public Endpoint
 
->- API : https://api.babylon.nodexcapital.com
->- RPC : https://rpc.babylon.nodexcapital.com
->- gRPC : https://grpc.babylon.nodexcapital.com
->- gRPC Web : https://grpc-web.babylon.nodexcapital.com
+You can find more information about babylon testnet on links below:
 
-### Snapshot (Update every 5 hours)
-```
-COMING SOON
-```
-
-### State Sync
-```
-COMING SOON
-```
-
-### Live Peers
-```
-COMING SOON
-```
-### Addrbook (Update every hour)
-```
-COMING SOON
-```
-### Genesis
-```
-COMING SOON
-```
+**https://hexskrt.net/testnet/babylon**
