@@ -13,7 +13,6 @@ echo -e "\e[0m"
 sleep 1
 
 # Variable
-# Variable
 DYMENSION_WALLET=wallet
 DYMENSION=dymd
 BINARY=cosmovisor
