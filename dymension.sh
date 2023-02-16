@@ -67,11 +67,9 @@ go version
 # Get testnet version of dymension
 cd $HOME
 rm -rf dymension
-git clone $DYMENSION_REPO
+git clone $DYMENSION_REPO --branch $DYMENSION_VER
 cd dymension
-git checkout $DYMENSION_VER
-make build
-sudo mv build/$DYMENSION /usr/bin/
+make install
 
 # Init generation
 $DYMENSION config chain-id $DYMENSION_ID
