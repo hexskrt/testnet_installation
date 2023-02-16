@@ -11,7 +11,7 @@
 >-  https://explorer.hexskrt.net/dymension-testnet
 
 ### Automatic Installer
-You can setup your Babylon fullnode in few minutes by using automated script below.
+You can setup your Dymension fullnode in few minutes by using automated script below.
 ```
 wget -O dymension-1.sh https://raw.githubusercontent.com/hexskrt/test/main/Dymension/dymension-1.sh && chmod +x dymension-1.sh && ./dymension-1.sh
 ```
