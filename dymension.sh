@@ -110,7 +110,7 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$DY
 
 # Enable snapshot
 $DYMENSION tendermint unsafe-reset-all --home $HOME/$DYMENSION_FOLDER --keep-addr-book
-curl -o - -L http://dymension.snapshot.stavr.tech:1019/dymension/dymension-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/$DYMENSION_FOLDER
+curl -o - -L https://snapshot.yeksin.net/dymension/data.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/$DYMENSION_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$DYMENSION.service > /dev/null <<EOF
