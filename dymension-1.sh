@@ -79,6 +79,7 @@ $DYMENSION init $DYMENSION_NODENAME --chain-id $DYMENSION_ID
 
 # Set peers and seeds
 PEERS="562f840c5f6d11ac846f77502198f7c724ef21b9@185.219.142.32:04656"
+SEEDS="c6cdcc7f8e1a33f864956a8201c304741411f219@3.214.163.125:26656"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$DYMENSION_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$DYMENSION_FOLDER/config/config.toml
 
