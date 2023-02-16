@@ -46,8 +46,8 @@ if [ ! $NODENAME ]; then
 fi
 echo ""
 echo -e "YOUR NODE NAME : \e[1m\e[35m$NODENAME\e[0m"
-echo -e "NODE CHAIN ID  : \e[1m\e[35m$CHAIN\e[0m"
-echo -e "NODE PORT      : \e[1m\e[35m$PORT\e[0m"
+echo -e "NODE CHAIN ID  : \e[1m\e[35m$DYMENSION_ID\e[0m"
+echo -e "NODE PORT      : \e[1m\e[35m$DYMENSION_PORT\e[0m"
 echo ""
 
 # Update
