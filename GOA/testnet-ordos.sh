@@ -108,7 +108,7 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$OR
 # Enable state sync
 $ORDOS tendermint unsafe-reset-all --home $HOME/$ORDOS_FOLDER
 
-SNAP_RPC="https://rpc-goa-ordos.sxlzptprjkt.xyz:443"
+SNAP_RPC="https://rpc-goa-ordos.hexskrt.net/:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
