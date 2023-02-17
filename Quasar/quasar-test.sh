@@ -1,8 +1,4 @@
 #
-# // Copyright (C) 2023 Salman Wahib Recoded By NodeX Capital
-#
-
-#
 # // Copyright (C) 2023 Salman Wahib Recoded By Hexnodes
 #
 
