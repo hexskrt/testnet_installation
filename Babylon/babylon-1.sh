@@ -78,7 +78,7 @@ $BBN config node tcp://localhost:${BBN_PORT}657
 $BBN init $BBN_NODENAME --chain-id $BBN_ID
 
 # Set peers and seeds
-PEERS=""
+PEERS="e4b3430b25eee1b46d5f9289b12eccdb6308b10b@babylon.rpc.yeksin.net:30656"
 SEEDS="03ce5e1b5be3c9a81517d415f65378943996c864@18.207.168.204:26656,a5fabac19c732bf7d814cf22e7ffc23113dc9606@34.238.169.221:26656"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BBN_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$BBN_FOLDER/config/config.toml
