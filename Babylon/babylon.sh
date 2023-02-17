@@ -23,7 +23,7 @@ DENOM=ubbn
 COSMOVISOR=cosmovisor
 REPO=https://github.com/babylonchain/babylon.git
 GENESIS=https://snapshots.polkachu.com/testnet-genesis/babylon/genesis.json
-ADDRBOOK=https://snapshots.polkachu.com/testnet-addrbook/babylon/addrbook.json
+ADDRBOOK=https://snapshots-testnet.nodejumper.io/babylon-testnet/addrbook.json
 PORT=03
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
