@@ -8,7 +8,7 @@ echo "    ██   ██ ██       ██ ██  ████   ██ █�
 echo "    ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "    ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "      Automatic Installer for BBNlon Chain | chain id : bbn-test1";
+echo "      Automatic Installer for Babylon Chain | chain id : bbn-test1";
 echo -e "\e[0m"
 sleep 1
 
@@ -18,7 +18,7 @@ BBN=babylond
 BBN_ID=bbn-test1
 BBN_FOLDER=.babylond
 BBN_VER=v0.5.0
-BBN_REPO=https://github.com/BBNlonchain/BBNlon.git
+BBN_REPO=https://github.com/babylonchain/babylon
 BBN_DENOM=ubbn
 BBN_PORT=03
 
