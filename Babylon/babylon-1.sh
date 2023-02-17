@@ -20,7 +20,7 @@ BBN_FOLDER=.babylond
 BBN_VER=v0.5.0
 BBN_REPO=https://github.com/babylonchain/babylon
 BBN_DENOM=ubbn
-BBN_PORT=03
+BBN_PORT=30
 
 echo "export BBN_WALLET=${BBN_WALLET}" >> $HOME/.bash_profile
 echo "export BBN=${BBN}" >> $HOME/.bash_profile
