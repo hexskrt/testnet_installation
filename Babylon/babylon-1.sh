@@ -62,12 +62,12 @@ go version
 
 # Get testnet version of babylond
 cd $HOME
-rm -rf babylond
+rm -rf babylon
 git clone $BBN_REPO
-cd babylond
+cd babylon
 git checkout $BBN_VER
-make build
-sudo mv build/$BBN /usr/bin/
+make install
+babylond version # v0.5.0
 
 # Init generation
 $BBN config chain-id $BBN_ID
