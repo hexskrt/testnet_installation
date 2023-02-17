@@ -114,7 +114,7 @@ $BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER --keep-addr-book
 SNAP_RPC="https://babylon.rpc.yeksin.net:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 100)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 echo ""
