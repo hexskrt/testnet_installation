@@ -105,23 +105,9 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$BBN_DENOM\"/
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$BBN_FOLDER/config/app.toml
 
-# Enable state sync
-$BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER
-
-SNAP_RPC="https://babylon-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo ""
-echo -e "\e[1m\e[31m[!]\e[0m HEIGHT : \e[1m\e[31m$LATEST_HEIGHT\e[0m BLOCK : \e[1m\e[31m$BLOCK_HEIGHT\e[0m HASH : \e[1m\e[31m$TRUST_HASH\e[0m"
-echo ""
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$BBN_FOLDER/config/config.toml
+# Enable snapshot
+babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book 
+curl https://snapshots-testnet.nodejumper.io/babylon-testnet/bbn-test1_2023-02-16.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.babylond
 
 # Create Service
 sudo tee /etc/systemd/system/$BBN.service > /dev/null <<EOF
