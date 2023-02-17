@@ -21,8 +21,6 @@ BBN_VER=v0.5.0
 BBN_REPO=https://github.com/babylonchain/babylon
 BBN_DENOM=ubbn
 BBN_PORT=03
-GENESIS=https://snapshot.yeksin.net/babylon/addrbook.json
-ADDRBOOK=https://snapshot.yeksin.net/babylon/genesis.json
 
 echo "export BBN_WALLET=${BBN_WALLET}" >> $HOME/.bash_profile
 echo "export BBN=${BBN}" >> $HOME/.bash_profile
@@ -84,8 +82,8 @@ sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BBN_F
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$BBN_FOLDER/config/config.toml
 
 # Download genesis and addrbook
-curl -Ls $GENESIS > $HOME/$FOLDER/config/genesis.json
-curl -Ls $ADDRBOOK > $HOME/$FOLDER/config/addrbook.json
+wget -qO $HOME/.babylond/config/genesis.json wget "https://snapshot.yeksin.net/babylon/genesis.json"
+wget -qO $HOME/.babylond/config/addrbook.json wget "https://snapshot.yeksin.net/babylon/addrbook.json"
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${BBN_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${BBN_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${BBN_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${BBN_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${BBN_PORT}660\"%" $HOME/$BBN_FOLDER/config/config.toml
