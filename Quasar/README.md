@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/7d35cffe8566d44a61bac5f541cc4b94940b5ae0/public/logos/quasar.png">
+  <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/quasar.png?raw=true">
 </p>
 
 # Quasar Testnet | Chain ID : qsr-questnet-04
