@@ -13,7 +13,7 @@
 ### Automatic Installer
 You can setup your Dymension fullnode in few minutes by using automated script below.
 ```
-wget -O dymension-1.sh https://raw.githubusercontent.com/hexskrt/test/main/Dymension/dymension-1.sh && chmod +x dymension-1.sh && ./dymension-1.sh
+wget -O dymension-1.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Dymension/dymension-1.sh && chmod +x dymension-1.sh && ./dymension-1.sh
 ```
 
 You can find more information about dymension testnet on links below:
