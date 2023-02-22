@@ -103,7 +103,7 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$BBN_DENOM\"/" $HOME/$BBN_FOLDER/config/app.toml
 
 # Set config snapshot
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$BBN_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$BBN_FOLDER/config/app.toml
 
 # Enable statesync
@@ -112,7 +112,7 @@ $BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER --keep-addr-book
 SNAP_RPC="https://babylon-testnet.nodejumper.io:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 
 echo ""
