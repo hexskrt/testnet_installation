@@ -102,6 +102,15 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$BBN_DENOM\"/" $HOME/$BBN_FOLDER/config/app.toml
 
+# Set key name
+sed -i 's|^key-name *=.*|key-name = "val-key"|g' $HOME/$BBN_FOLDER/config/app.toml
+
+# Set checkpoint tag
+sed -i 's|^checkpoint-tag *=.*|checkpoint-tag = "bbn0"|g' $HOME/$BBN_FOLDER/config/app.toml
+
+# Set timeout commit
+sed -i 's|^timeout_commit *=.*|timeout_commit = "10s"|g' $HOME/$BBN_FOLDER/config/config.toml
+
 # Set config snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$BBN_FOLDER/config/app.toml
