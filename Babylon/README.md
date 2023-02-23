@@ -13,7 +13,7 @@
 ### Automatic Installer
 You can setup your Babylon fullnode in few minutes by using automated script below.
 ```
-wget -O babylon.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Babylon/babylon.sh && chmod +x babylon.sh && ./babylon.sh
+wget -O babylon-1.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Babylon/babylon-1.sh && chmod +x babylon-1.sh && ./babylon-1.sh
 ```
 
 You can find more information about babylon testnet on links below:
