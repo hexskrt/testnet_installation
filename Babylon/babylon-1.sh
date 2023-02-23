@@ -19,8 +19,10 @@ BBN_ID=bbn-test1
 BBN_FOLDER=.babylond
 BBN_VER=v0.5.0
 BBN_REPO=https://github.com/babylonchain/babylon
+BBN_GENESIS=https://snapshot.yeksin.net/babylon/genesis.json
+BBN_ADDRBOOK=https://snapshots1-testnet.nodejumper.io/babylon-testnet/addrbook.json
 BBN_DENOM=ubbn
-BBN_PORT=30
+BBN_PORT=06
 
 echo "export BBN_WALLET=${BBN_WALLET}" >> $HOME/.bash_profile
 echo "export BBN=${BBN}" >> $HOME/.bash_profile
@@ -28,13 +30,15 @@ echo "export BBN_ID=${BBN_ID}" >> $HOME/.bash_profile
 echo "export BBN_FOLDER=${BBN_FOLDER}" >> $HOME/.bash_profile
 echo "export BBN_VER=${BBN_VER}" >> $HOME/.bash_profile
 echo "export BBN_REPO=${BBN_REPO}" >> $HOME/.bash_profile
+echo "export BBN_GENESIS=${BBN_GENESIS}" >> $HOME/.bash_profile
+echo "export BBN_ADDRBOOK=${BBN_ADDRBOOK}" >> $HOME/.bash_profile
 echo "export BBN_DENOM=${BBN_DENOM}" >> $HOME/.bash_profile
 echo "export BBN_PORT=${BBN_PORT}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 # Set Vars
 if [ ! $BBN_NODENAME ]; then
-        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODE] > " BBN_NODENAME
+        read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR NODE] > " BBN_NODENAME
         echo 'export BBN_NODENAME='$BBN_NODENAME >> $HOME/.bash_profile
 fi
 echo ""
@@ -60,30 +64,30 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 
-# Get testnet version of babylond
+# Get testnet version of andromeda
 cd $HOME
-rm -rf babylon
+rm -rf $BBN
 git clone $BBN_REPO
 cd babylon
 git checkout $BBN_VER
-make install
-babylond version # v0.5.0
+make build
+sudo mv build/$BBN /usr/bin/
 
 # Init generation
 $BBN config chain-id $BBN_ID
-$BBN config keyring-backend file
+$BBN config keyring-backend test
 $BBN config node tcp://localhost:${BBN_PORT}657
 $BBN init $BBN_NODENAME --chain-id $BBN_ID
 
 # Set peers and seeds
-PEERS="88bed747abef320552d84d02947d0dd2b6d9c71c@babylon-testnet.nodejumper.io:44656,e4b3430b25eee1b46d5f9289b12eccdb6308b10b@babylon.rpc.yeksin.net:30656,cd9d96f554e7298a8d1f1a94489f7a51520f01ff@142.132.152.46:47656,1d0c78d6945ac4007dafef2a130e532c07b806d2@65.108.105.48:20656,69ef025bead8bc5d9ad5297be2d8e6d01a864227@65.109.89.5:33656,b531acac8945962606025db892d86bb0bf0872af@3.93.71.208:26656,e3f9ccbfc86011bb2bd6c2756b2c8b8dc4c8eb97@54.81.138.3:26656,d54157138c8b26d8eabf4b0d9e01b2b5d9e38267@54.234.206.250:26656,b53302c8887d4bd57799992592a2280987d3f213@95.217.144.107:20656,3118e751541323b0136b8ce6bcae80947d318d27@65.109.92.235:11046,c48276582fbd884a57bd481d2b5c1503c7b73e92@54.224.66.12:26656,ed9df3c70f5905307867d4817b95a1839fdf1655@154.53.56.176:27656"
+PEERS=""
 SEEDS="03ce5e1b5be3c9a81517d415f65378943996c864@18.207.168.204:26656,a5fabac19c732bf7d814cf22e7ffc23113dc9606@34.238.169.221:26656"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BBN_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$BBN_FOLDER/config/config.toml
 
 # Download genesis and addrbook
-wget -qO $HOME/.babylond/config/genesis.json wget "https://snapshot.yeksin.net/babylon/genesis.json"
-wget -qO $HOME/.babylond/config/addrbook.json wget "https://snapshot.yeksin.net/babylon/addrbook.json"
+curl -Ls $BBN_GENESIS > $HOME/$BBN_FOLDER/config/genesis.json
+curl -Ls $BBN_ADDRBOOK > $HOME/$BBN_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${BBN_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${BBN_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${BBN_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${BBN_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${BBN_PORT}660\"%" $HOME/$BBN_FOLDER/config/config.toml
@@ -111,39 +115,25 @@ sed -i 's|^checkpoint-tag *=.*|checkpoint-tag = "bbn0"|g' $HOME/$BBN_FOLDER/conf
 # Set timeout commit
 sed -i 's|^timeout_commit *=.*|timeout_commit = "10s"|g' $HOME/$BBN_FOLDER/config/config.toml
 
-# Set config snapshot
+# Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$BBN_FOLDER/config/app.toml
-
-# Enable statesync
 $BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER --keep-addr-book
-
-SNAP_RPC="https://babylon-testnet.nodejumper.io:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo ""
-echo -e "\e[1m\e[31m[!]\e[0m HEIGHT : \e[1m\e[31m$LATEST_HEIGHT\e[0m BLOCK : \e[1m\e[31m$BLOCK_HEIGHT\e[0m HASH : \e[1m\e[31m$TRUST_HASH\e[0m"
-echo ""
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$BBN_FOLDER/config/config.toml
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/ | egrep -o ">bbn-test1.*\.tar.lz4" | tr -d ">")
+curl -L https://snapshots1-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/$BBN_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$BBN.service > /dev/null <<EOF
 [Unit]
 Description=$BBN
 After=network-online.target
+
 [Service]
 User=$USER
 ExecStart=$(which $BBN) start --home $HOME/$BBN_FOLDER
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
+
 [Install]
 WantedBy=multi-user.target
 EOF
