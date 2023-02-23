@@ -19,13 +19,13 @@ WALLET=wallet
 BINARY=nolusd
 CHAIN=nolus-rila
 FOLDER=.nolus
-VERSION=v0.1.43
+VERSION=v0.1.39
 DENOM=unls
 COSMOVISOR=cosmovisor
 REPO=https://github.com/Nolus-Protocol/nolus-core.git
 GENESIS=https://snapshots.kjnodes.com/nolus-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/nolus-testnet/addrbook.json
-PORT=06
+PORT=39
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
 echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
@@ -43,7 +43,7 @@ source $HOME/.bash_profile
 
 # Set Vars
 if [ ! $NODENAME ]; then
-        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODENAME] > " NODENAME
+        read -p "hello@nodexcapital:~# [ENTER YOUR NODENAME] > " NODENAME
         echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 echo ""
