@@ -8,7 +8,7 @@ echo "    ██   ██ ██       ██ ██  ████   ██ █�
 echo "    ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "    ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "                    Automatic Installer for NOLUS ";
+echo "                      Automatic Installer for NOLUS ";
 echo -e "\e[0m"
 
 sleep 1
@@ -72,7 +72,6 @@ git clone $NLS_REPO
 cd babylon
 git checkout $NLS_VER
 make build
-sudo mv build/$NLS /usr/bin/
 
 # Init generation
 $NLS config chain-id $NLS_ID
@@ -104,7 +103,6 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$NLS_DENOM\"/
 
 # Enable snapshots
 $NLS tendermint unsafe-reset-all --home $HOME/$NLS_FOLDER --keep-addr-book
-
 curl -o - -L http://nolus.snapshot.stavr.tech:1010/nolus/nolus-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.nolus --strip-components 2
 
 # Create Service
