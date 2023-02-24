@@ -71,7 +71,7 @@ rm -rf $NLS
 git clone $NLS_REPO
 cd nolus-core
 git checkout $NLS_VER
-make install
+make build
 
 # Init generation
 $NLS config chain-id $NLS_ID
