@@ -19,7 +19,7 @@ NLS=nolusd
 NLS_ID=nolus-rila
 NLS_FOLDER=.nolus
 NLS_VER=v0.1.43
-NLS_REPO=https://github.com/Nolus-Protocol/nolus-core.git
+NLS_REPO=https://github.com/Nolus-Protocol/nolus-core
 NLS_GENESIS=https://raw.githubusercontent.com/Nolus-Protocol/nolus-networks/main/testnet/nolus-rila/genesis.json
 NLS_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nolus/addrbook.json
 NLS_DENOM=unls
@@ -69,9 +69,9 @@ go version
 cd $HOME
 rm -rf $NLS
 git clone $NLS_REPO
-cd babylon
+cd nolus-core
 git checkout $NLS_VER
-make build
+make install
 
 # Init generation
 $NLS config chain-id $NLS_ID
