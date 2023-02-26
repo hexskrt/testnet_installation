@@ -136,7 +136,7 @@ sed -i \
   -e "s|^trust_height *=.*|trust_height = $SYNC_BLOCK_HEIGHT|" \
   -e "s|^trust_hash *=.*|trust_hash = \"$SYNC_BLOCK_HASH\"|" \
   -e "s|^persistent_peers *=.*|persistent_peers = \"$STATE_SYNC_PEER\"|" \ 
-  $HOME/$FOLDER/config/config.toml
+  $HOME/.arkh/config/config.toml
 
 # Create Service
 sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
