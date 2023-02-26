@@ -25,7 +25,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/vincadian/arkh-blockchain
 GENESIS=https://raw.githubusercontent.com/nodexcapital/mainnet/main/arkhadian/genesis.json
 ADDRBOOK=https://raw.githubusercontent.com/nodexcapital/mainnet/main/arkhadian/addrbook.json
-PORT=137
+PORT=127
 
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
