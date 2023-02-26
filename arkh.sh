@@ -121,10 +121,9 @@ sed -i -e "s/prometheus = false/prometheus = true/" $HOME/$FOLDER/config/config.
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$FOLDER/config/app.toml
 
 # Enable snapshots
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ARKH_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$ARKH_FOLDER/config/app.toml
-$ARKH unsafe-reset-all --home $HOME/$ARKH_FOLDER
-
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/.arkh/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/.arkh/config/app.toml
+$BINARY unsafe-reset-all --home $HOME/$FOLDER
 curl -L https://snap.nodeist.net/arkh/arkh.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.arkh --strip-components 2
 
 # Create Service
