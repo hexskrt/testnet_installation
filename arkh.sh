@@ -23,7 +23,7 @@ VERSION=v2.0.0
 DENOM=arkh
 COSMOVISOR=cosmovisor
 REPO=https://github.com/vincadian/arkh-blockchain
-#GENESIS=https://raw.githubusercontent.com/nodexcapital/mainnet/main/arkhadian/genesis.json
+GENESIS=https://raw.githubusercontent.com/nodexcapital/mainnet/main/arkhadian/genesis.json
 ADDRBOOK=https://raw.githubusercontent.com/nodexcapital/mainnet/main/arkhadian/addrbook.json
 PORT=07
 
