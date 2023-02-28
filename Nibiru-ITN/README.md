@@ -2,20 +2,20 @@
   <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/nibiru.png?raw=true">
 </p>
 
-# Dymension Testnet | Chain ID : 35-C
+# Nibiru-ITN Testnet | Chain ID : nibiru-itn-1
 
 ### Official Documentation:
->- [Validator Setup Instructions](https://docs.dymension.xyz/validate/dymension-hub/build-dymd)
+>- [Validator Setup Instructions](https://nibiru.fi/docs/run-nodes/validators/#)
 
 ### Explorer:
->-  https://explorer.hexskrt.net/dymension-testnet
+>-  https://explorer.hexskrt.net/nibiru-testnet
 
 ### Automatic Installer
-You can setup your Dymension fullnode in few minutes by using automated script below.
+You can setup your Nibiru fullnode in few minutes by using automated script below.
 ```
-wget -O dymension-1.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Dymension/dymension-1.sh && chmod +x dymension-1.sh && ./dymension-1.sh
+wget -O nibi-itn1.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Nibiru-ITN/nibi-itn1.sh && chmod +x nibi-itn1.sh && ./nibi-itn1.sh
 ```
 
 You can find more information about dymension testnet on links below:
 
-**https://hexskrt.net/testnet/dymension**
+**https://hexskrt.net/testnet/nibiru**
