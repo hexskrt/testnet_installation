@@ -15,6 +15,6 @@ You can setup your Dymension fullnode in few minutes by using automated script b
 wget -O quasar-test.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Quasar/quasar-test.sh && chmod +x quasar-test.sh && ./quasar-test.sh
 ```
 
-You can find more information about dymension testnet on links below:
+You can find more information about quasar testnet on links below:
 
 **https://hexskrt.net/testnet/quasar**
