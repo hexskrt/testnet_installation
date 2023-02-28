@@ -16,6 +16,6 @@ You can setup your Nibiru fullnode in few minutes by using automated script belo
 wget -O nibi-itn1.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Nibiru-ITN/nibi-itn1.sh && chmod +x nibi-itn1.sh && ./nibi-itn1.sh
 ```
 
-You can find more information about dymension testnet on links below:
+You can find more information about nibiru testnet on links below:
 
 **https://hexskrt.net/testnet/nibiru**
