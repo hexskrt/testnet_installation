@@ -16,6 +16,6 @@ You can setup your Nibiru fullnode in few minutes by using automated script belo
 wget -O nolus.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Nolus/nolus.sh && chmod +x nolus.sh && ./nolus.sh
 ```
 
-You can find more information about dymension testnet on links below:
+You can find more information about nolus testnet on links below:
 
 **https://hexskrt.net/testnet/nolus**
