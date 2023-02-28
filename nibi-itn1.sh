@@ -21,6 +21,7 @@ NIBI_FOLDER=.nibid
 NIBI_VER=v0.19.2
 NIBI_REPO=https://github.com/NibiruChain/nibiru.git
 NIBI_GENESIS=https://snapshot.yeksin.net/nibiru/genesis.json
+NIBI_ADDRBOOK=https://ss-t.nibiru.nodestake.top/addrbook.json
 NIBI_DENOM=unibi
 NIBI_PORT=07
 
@@ -86,6 +87,7 @@ sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$NIBI_FOLDER/config/config.t
 
 # Download genesis and addrbook
 curl -Ls $NIBI_GENESIS > $HOME/$NIBI_FOLDER/config/genesis.json
+curl -Ls $NIBI_ADDRBOOK > $HOME/$NIBI_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${NIBI_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${NIBI_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${NIBI_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${NIBI_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${NIBI_PORT}660\"%" $HOME/$NIBI_FOLDER/config/config.toml
