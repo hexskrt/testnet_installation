@@ -8,7 +8,7 @@ echo "    ██   ██ ██       ██ ██  ████   ██ █�
 echo "    ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "    ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "                   Automatic Installer for Nibiru ";
+echo "           Automatic Installer for Nibiru Chain ID : nibiru-itn-1 ";
 echo -e "\e[0m"
 
 sleep 1
@@ -94,9 +94,9 @@ sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.
 sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${NIBI_PORT}317\"%; s%^address = \":8080\"%address = \":${NIBI_PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${NIBI_PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${NIBI_PORT}091\"%" $HOME/$NIBI_FOLDER/config/app.toml
 
 # Set Config Pruning
-sed -i -e "s/^pruning *=.*/pruning = \"nothing\"/" $HOME/.nolus/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"nothing\"/" $HOME/.nibid/config/app.toml
 indexer="null" && \
-sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.nolus/config/config.toml
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.nibid/config/config.toml
 
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$NIBI_DENOM\"/" $HOME/$NIBI_FOLDER/config/app.toml
