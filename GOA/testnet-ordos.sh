@@ -20,7 +20,7 @@ ORDOS_FOLDER=.ordos
 ORDOS_VER=v0.1.0-goa
 ORDOS_REPO=https://github.com/terra-money/alliance
 ORDOS_DENOM=uord
-ORDOS_PORT=01
+ORDOS_PORT=20
 
 echo "export ORDOS_WALLET=${ORDOS_WALLET}" >> $HOME/.bash_profile
 echo "export ORDOS=${ORDOS}" >> $HOME/.bash_profile
@@ -34,7 +34,7 @@ source $HOME/.bash_profile
 
 # Set Vars
 if [ ! $ORDOS_NODENAME ]; then
-        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODE] > " ORDOS_NODENAME
+        read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR NODE] > " ORDOS_NODENAME
         echo 'export ORDOS_NODENAME='$ORDOS_NODENAME >> $HOME/.bash_profile
 fi
 echo ""
@@ -76,8 +76,8 @@ $ORDOS config node tcp://localhost:${ORDOS_PORT}657
 $ORDOS init $ORDOS_NODENAME --chain-id $ORDOS_ID
 
 # Set peers and seeds
-PEERS="6d26ed3f5ba59dde6bf45d56c1b2c5b00a214c09@185.219.142.32:01656,49d39420c03ec57240793bca9c8bcc4d339e976b@65.21.135.86:2000,6ebf0000ee85ff987f1d9de3223d605745736ca9@35.168.16.221:41356,2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,8c3459aebbd9d74f213b65ad106641480b817ba4@38.242.134.77:10656,97b1ca0d0746126b2e2df45509c0e567af2facca@65.109.117.208:4000,2431611330c0cc60146a47ae89f3dd1c59c63f51@54.224.89.241:46656,3f486d41a9be9808ae60573712dbe7f6343eed31@164.92.91.248:10656,4ae10e9c2aac86c12da8ad585dd8ab7cab416ac6@89.163.130.46:26656,1677dabde46280cf7101472ac96777d855c0fbf0@65.109.32.226:26656,6deac387b71a1a83ce6ca3a7b3422ca472d19788@217.76.59.213:26656,74c67144a1dd53a73edff2bde17c0f42a025c924@65.21.134.202:27656,0c795b273ca8fbabe9421396129209ffe9d278b8@54.202.211.7:26656,c4c71cf90ebe51a215c71f5cc769cf7b188ff155@131.153.158.173:26656,2cae9adec56ffc7cb7447ddbd37adf4eba5525e8@65.109.93.35:29656,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,418a1b8485e79d7e12f934ce7ec622cfcbde97d3@52.91.39.40:41356,2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356"
-SEEDS="1772a7a48530cc8adc447fdb7b720c064411667b@goa-seeds.lavenderfive.com:11656"
+PEERS="3f636d4bc99a309797bbaef5934fc9c3b8f3070c@146.190.81.135:01656"
+SEEDS=""
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$ORDOS_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$ORDOS_FOLDER/config/config.toml
 
@@ -102,13 +102,13 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$ORDOS_DENOM\"/" $HOME/$ORDOS_FOLDER/config/app.toml
 
 # Set config snapshot
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$ORDOS_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$ORDOS_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ORDOS_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$ORDOS_FOLDER/config/app.toml
 
 # Enable state sync
 $ORDOS tendermint unsafe-reset-all --home $HOME/$ORDOS_FOLDER
 
-SNAP_RPC="https://rpc-goa-ordos.hexskrt.net:443"
+SNAP_RPC="https://rpc-goa-ordos.sxlzptprjkt.xyz:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
