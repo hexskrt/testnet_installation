@@ -20,7 +20,7 @@ ANDRO_FOLDER=.andromedad
 ANDRO_VER=galileo-3-v1.1.0-beta1
 ANDRO_REPO=https://github.com/andromedaprotocol/andromedad.git
 ANDRO_DENOM=uandr
-ANDRO_PORT=02
+ANDRO_PORT=01
 
 echo "export ANDRO_WALLET=${ANDRO_WALLET}" >> $HOME/.bash_profile
 echo "export ANDRO=${ANDRO}" >> $HOME/.bash_profile
