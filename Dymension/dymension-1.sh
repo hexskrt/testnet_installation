@@ -20,7 +20,7 @@ DYMENSION_FOLDER=.dymension
 DYMENSION_VER=v0.2.0-beta
 DYMENSION_REPO=https://github.com/dymensionxyz/dymension
 DYMENSION_DENOM=udym
-DYMENSION_PORT=03
+DYMENSION_PORT=04
 DYMENSION_GENESIS=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/genesis.json
 DYMENSION_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/addrbook.json
 
