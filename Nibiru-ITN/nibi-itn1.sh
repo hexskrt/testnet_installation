@@ -23,7 +23,7 @@ NIBI_REPO=https://github.com/NibiruChain/nibiru.git
 NIBI_GENESIS=https://snapshot.yeksin.net/nibiru/genesis.json
 NIBI_ADDRBOOK=https://ss-t.nibiru.nodestake.top/addrbook.json
 NIBI_DENOM=unibi
-NIBI_PORT=05
+NIBI_PORT=06
 
 echo "export NIBI_WALLET=${NIBI_WALLET}" >> $HOME/.bash_profile
 echo "export NIBI=${NIBI}" >> $HOME/.bash_profile
