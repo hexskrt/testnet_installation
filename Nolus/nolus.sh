@@ -23,7 +23,7 @@ NLS_REPO=https://github.com/Nolus-Protocol/nolus-core
 NLS_GENESIS=https://raw.githubusercontent.com/Nolus-Protocol/nolus-networks/main/testnet/nolus-rila/genesis.json
 NLS_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nolus/addrbook.json
 NLS_DENOM=unls
-NLS_PORT=06
+NLS_PORT=07
 
 echo "export NLS_WALLET=${NLS_WALLET}" >> $HOME/.bash_profile
 echo "export NLS=${NLS}" >> $HOME/.bash_profile
