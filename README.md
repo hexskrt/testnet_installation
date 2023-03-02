@@ -1,4 +1,4 @@
-# List Of Supported Networks
+# List Supported Networks
 
 |Project Name|Custom Port|Chain ID|Node Version|
 |------------|-----------|--------|------------|
