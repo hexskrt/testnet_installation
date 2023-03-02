@@ -23,7 +23,7 @@ NLS_REPO=https://github.com/Nolus-Protocol/nolus-core
 NLS_GENESIS=https://raw.githubusercontent.com/Nolus-Protocol/nolus-networks/main/testnet/nolus-rila/genesis.json
 NLS_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nolus/addrbook.json
 NLS_DENOM=unls
-NLS_PORT=11
+NLS_PORT=06
 
 echo "export NLS_WALLET=${NLS_WALLET}" >> $HOME/.bash_profile
 echo "export NLS=${NLS}" >> $HOME/.bash_profile
@@ -103,7 +103,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$NLS_DENOM\"/
 
 # Enable snapshots
 $NLS tendermint unsafe-reset-all --home $HOME/$NLS_FOLDER --keep-addr-book
-curl -o - -L http://nolus.snapshot.stavr.tech:1010/nolus/nolus-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.nolus --strip-components 2
+curl -L http://snap.hexskrt.net/nolus/nolust-latest.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.nolus
 
 # Create Service
 sudo tee /etc/systemd/system/$NLS.service > /dev/null <<EOF
