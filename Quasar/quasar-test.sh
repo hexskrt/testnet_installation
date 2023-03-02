@@ -23,7 +23,7 @@ BIN_REPO=https://github.com/quasar-finance/binary-release/raw/main/v0.0.2-alpha-
 COSMOVISOR=cosmovisor
 GENESIS=https://snap.nodexcapital.com/quasar/genesis.json
 ADDRBOOK=https://snap.nodexcapital.com/quasar/addrbook.json
-PORT=07
+PORT=08
 
 echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
 echo "export BINARY=${BINARY}" >> $HOME/.bash_profile
