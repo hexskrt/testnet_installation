@@ -20,7 +20,7 @@ ORDOS_FOLDER=.ordos
 ORDOS_VER=v0.1.0-goa
 ORDOS_REPO=https://github.com/terra-money/alliance
 ORDOS_DENOM=uord
-ORDOS_PORT=04
+ORDOS_PORT=05
 
 echo "export ORDOS_WALLET=${ORDOS_WALLET}" >> $HOME/.bash_profile
 echo "export ORDOS=${ORDOS}" >> $HOME/.bash_profile
