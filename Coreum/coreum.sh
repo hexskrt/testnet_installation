@@ -26,7 +26,7 @@ REPO=https://github.com/CoreumFoundation/coreum/releases/download/v0.1.1/cored-l
 BIN_NAME=cored-linux-amd64
 GENESIS=https://snap.nodexcapital.com/coreum/genesis.json
 ADDRBOOK=https://snap.nodexcapital.com/coreum/addrbook.json
-PORT=52
+PORT=03
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
 echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
