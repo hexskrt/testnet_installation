@@ -16,6 +16,6 @@ You can setup your Dymension fullnode in few minutes by using automated script b
 wget -O coreum.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Coreum/coreum.sh && chmod +x coreum.sh && ./coreum.sh
 ```
 
-You can find more information about dymension testnet on links below:
+You can find more information about coreum testnet on links below:
 
 **https://hexskrt.net/testnet/coreum**
