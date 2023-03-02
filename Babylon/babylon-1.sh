@@ -22,7 +22,7 @@ BBN_REPO=https://github.com/babylonchain/babylon
 BBN_GENESIS=https://snapshot.yeksin.net/babylon/genesis.json
 BBN_ADDRBOOK=https://snapshots1-testnet.nodejumper.io/babylon-testnet/addrbook.json
 BBN_DENOM=ubbn
-BBN_PORT=06
+BBN_PORT=02
 
 echo "export BBN_WALLET=${BBN_WALLET}" >> $HOME/.bash_profile
 echo "export BBN=${BBN}" >> $HOME/.bash_profile
