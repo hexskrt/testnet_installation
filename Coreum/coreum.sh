@@ -1,15 +1,16 @@
 #
-# // Copyright (C) 2023 Salman Wahib Recoded By Hexnodes
+# // Copyright (C) 2022 Salman Wahib Recoded By NodeX Capital
 #
 
 echo -e "\033[0;32m"
-echo "    ██   ██ ███████ ██   ██ ███    ██  ██████  ██████  ███████ ███████";
-echo "    ██   ██ ██       ██ ██  ████   ██ ██    ██ ██   ██ ██      ██     "; 
-echo "    ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
-echo "    ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
-echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo " Cosmovisor Automatic Installer for Coreum | Chain ID : coreum-testnet-1 ";
+echo "       ██   ██ ███████ ██   ██ ███    ██  ██████  ██████  ███████ ███████";
+echo "       ██   ██ ██       ██ ██  ████   ██ ██    ██ ██   ██ ██      ██     "; 
+echo "       ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
+echo "       ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
+echo "       ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
+echo "  Cosmovisor Automatic Installer for Coreum Testnet - chain id : coreum-testnet-1 ";
 echo -e "\e[0m"
+
 sleep 1
 
 # Variable
@@ -23,8 +24,8 @@ DENOM=utestcore
 COSMOVISOR=cosmovisor
 REPO=https://github.com/CoreumFoundation/coreum/releases/download/v0.1.1/cored-linux-amd64
 BIN_NAME=cored-linux-amd64
-GENESIS=https://snap.nodexcapital.com/coreum/genesis.json
-ADDRBOOK=https://snap.nodexcapital.com/coreum/addrbook.json
+GENESIS=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Coreum/addrbook.json
+ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Coreum/genesis.json
 PORT=03
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
@@ -117,7 +118,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$FOLDER/$CHAIN/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$FOLDER/$CHAIN --keep-addr-book
-curl -L https://snap.nodeist.net/t/coreum/coreum.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$FOLDER/$CHAIN --strip-components 2
+curl -o - -L http://coreum.snapshot.stavr.tech:1022/cored/cored-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.core/coreum-testnet-1 --strip-components 3
 
 #Delete Trash File
 cd $HOME/$FOLDER/$CHAIN/
@@ -132,6 +133,7 @@ sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
 [Unit]
 Description=$BINARY
 After=network-online.target
+
 [Service]
 User=$USER
 ExecStart=$(which cosmovisor) run start
@@ -141,6 +143,7 @@ LimitNOFILE=65535
 Environment="DAEMON_HOME=$HOME/$FOLDER/$CHAIN"
 Environment="DAEMON_NAME=$BINARY"
 Environment="UNSAFE_SKIP_BACKUP=true"
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -157,3 +160,5 @@ echo -e "CHECK STATUS BINARY : \e[1m\e[35msystemctl status $BINARY\e[0m"
 echo -e "CHECK RUNNING LOGS : \e[1m\e[35mjournalctl -fu $BINARY -o cat\e[0m"
 echo -e "CHECK LOCAL STATUS : \e[1m\e[35mcurl -s localhost:${PORT}657/status | jq .result.sync_info\e[0m"
 echo ""
+
+# End
