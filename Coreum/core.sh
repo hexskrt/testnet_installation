@@ -3,12 +3,13 @@
 #
 
 echo -e "\033[0;32m"
-echo "       ██   ██ ███████ ██   ██ ███    ██  ██████  ██████  ███████ ███████";
-echo "       ██   ██ ██       ██ ██  ████   ██ ██    ██ ██   ██ ██      ██     "; 
-echo "       ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
-echo "       ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
-echo "       ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "  Cosmovisor Automatic Installer for Coreum Testnet - chain id : coreum-testnet-1 ";
+echo "    ██   ██ ███████ ██   ██ ███    ██  ██████  ██████  ███████ ███████";
+echo "    ██   ██ ██       ██ ██  ████   ██ ██    ██ ██   ██ ██      ██     "; 
+echo "    ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
+echo "    ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
+echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
+echo "  Cosmovisor Automatic Installer for Coreum Chain ID : coreum-testnet-1";
+echo -e "\e[0m"
 echo -e "\e[0m"
 
 sleep 1
@@ -24,8 +25,8 @@ DENOM=utestcore
 COSMOVISOR=cosmovisor
 REPO=https://github.com/CoreumFoundation/coreum/releases/download/v0.1.1/cored-linux-amd64
 BIN_NAME=cored-linux-amd64
-GENESIS=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Coreum/addrbook.json
-ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Coreum/genesis.json
+GENESIS=https://snap.nodexcapital.com/coreum/genesis.json
+ADDRBOOK=https://snap.nodexcapital.com/coreum/addrbook.json
 PORT=03
 
 echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
@@ -118,7 +119,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$FOLDER/$CHAIN/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$FOLDER/$CHAIN --keep-addr-book
-curl -o - -L http://coreum.snapshot.stavr.tech:1022/cored/cored-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.core/coreum-testnet-1 --strip-components 3
+curl -L https://snap.nodexcapital.com/coreum/coreum-latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$FOLDER/$CHAIN/
 
 #Delete Trash File
 cd $HOME/$FOLDER/$CHAIN/
