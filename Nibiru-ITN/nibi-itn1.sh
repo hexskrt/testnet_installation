@@ -103,7 +103,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$NIBI_DENOM\"
 
 # Enable snapshots
 $NIBI tendermint unsafe-reset-all --home $HOME/$NIBI_FOLDER --keep-addr-book
-curl -L https://nibiru-t.service.indonode.net/nibiru-snapshot.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.nibid
+curl -L https://snapshots.kjnodes.com/nibiru-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nibid
 
 # Create Service
 sudo tee /etc/systemd/system/$NIBI.service > /dev/null <<EOF
