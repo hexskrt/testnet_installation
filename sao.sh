@@ -61,7 +61,7 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 
-# Get testnet version of andromeda
+# Get testnet version of sao network
 cd $HOME
 rm -rf $SAO
 git clone $SAO_REPO
@@ -78,7 +78,7 @@ $SAO init sao-testnet --chain-id $SAO_ID
 
 # Set peers and seeds
 PEERS=""
-SEEDS="ab8febad726c213fac69361c8fd47adc3f302e64@38.242.143.4:26656,fda4d1c914a667e72181839fcfddb238c7e480c8@85.239.240.101:26656"
+SEEDS="59cef823c1a426f15eb9e688287cd1bc2b6ea42d@152.70.126.187:26656,a5298771c624a376fdb83c48cc6c630e58092c62@192.18.136.151:26656,af7259853f202391e624c612ff9d3de1142b4ca4@52.77.248.130:26656,c196d06c9c37dee529ca167701e25f560a054d6d@3.35.136.39:26656"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$SAO_FOLDER/config/config.toml
 
 # Set Port
