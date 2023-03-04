@@ -19,7 +19,7 @@ SAO=saod
 SAO_ID=sao-testnet0
 SAO_FOLDER=.sao
 SAO_VER=testnet0
-SAO_REPO=https://github.com/SaoNetwork/sao-consensus
+SAO_REPO=https://github.com/SaoNetwork/sao-consensus.git
 SAO_DENOM=sao
 SAO_PORT=10
 
@@ -65,7 +65,7 @@ go version
 cd $HOME
 rm -rf $SAO
 git clone $SAO_REPO
-cd sao-conseus
+cd sao-consensus
 git checkout $SAO_VER
 make install
 sudo cp ~/go/bin/saod /usr/local/bin/saod
