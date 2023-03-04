@@ -74,15 +74,12 @@ sudo cp ~/go/bin/saod /usr/local/bin/saod
 $SAO config chain-id $SAO_ID
 $SAO config keyring-backend test
 $SAO config node tcp://localhost:${SAO_PORT}657
-$SAO init $SAO_NODENAME --chain-id $SAO_ID
+$SAO init sao-testnet --chain-id $SAO_ID
 
 # Set peers and seeds
 PEERS=""
 SEEDS="ab8febad726c213fac69361c8fd47adc3f302e64@38.242.143.4:26656,fda4d1c914a667e72181839fcfddb238c7e480c8@85.239.240.101:26656"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$SAO_FOLDER/config/config.toml
-
-# Create genesis
-
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${SAO_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${SAO_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${SAO_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${SAO_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${SAO_PORT}660\"%" $HOME/$SAO_FOLDER/config/config.toml
