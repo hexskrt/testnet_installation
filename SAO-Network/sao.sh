@@ -68,7 +68,7 @@ git clone $SAO_REPO
 cd sao-consensus
 git checkout $SAO_VER
 make install
-sudo cp ~/go/bin/saod /usr/local/bin/saod
+sudo mv ~/go/bin/saod /usr/local/bin/saod
 
 # Init generation
 $SAO config chain-id $SAO_ID
