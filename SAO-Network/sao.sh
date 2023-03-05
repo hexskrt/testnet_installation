@@ -21,7 +21,7 @@ SAO_FOLDER=.sao
 SAO_VER=testnet0
 SAO_REPO=https://github.com/SaoNetwork/sao-consensus.git
 SAO_DENOM=sao
-SAO_PORT=10
+SAO_PORT=09
 
 echo "export SAO_WALLET=${SAO_WALLET}" >> $HOME/.bash_profile
 echo "export SAO=${SAO}" >> $HOME/.bash_profile
