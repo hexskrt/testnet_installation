@@ -2,7 +2,7 @@
   <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/sao.png?raw=true">
 </p>
 
-# Sao-Network Testnet | Chain ID : testnet0
+# Sao-Network Testnet | Chain ID : sao-testnet0
 ### Official Documentation:
 >- [Validator Setup Instructions](https://docs.sao.network/participate-in-sao-network/run-consensus-node)
 
