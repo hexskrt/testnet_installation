@@ -81,5 +81,5 @@ That's mean you have create service for Grafana & Prometheus! Ok we go to next s
 Open a web browser and navigate to http://IPSERVER:3000 or your custom domain, in this case im using https://monitoring.hexskrt.net to manage my monitoring dashboard. You should see the Grafana login page. Use the default username and password (admin/admin) to log in dashboard.
 
 <p align="center">
-  <img height="300" height="auto" src="https://prnt.sc/fL6uO7weX4Hc">
+  <img height="300" height="auto" src="https://i.imgur.com/eHhBwbM.png">
 </p>
