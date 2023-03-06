@@ -12,7 +12,7 @@
 ### Automatic Installer
 You can setup your Dymension fullnode in few minutes by using automated script below.
 ```
-wget -O sao.shh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/SAO-Network/sao.sh && chmod +x sao.sh && ./sao.sh
+wget -O sao.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/SAO-Network/sao.sh && chmod +x sao.sh && ./sao.sh
 ```
 
 You can find more information about sao testnet on links below:
