@@ -12,7 +12,7 @@
 ### Automatic Installer
 You can setup your Quasar fullnode in few minutes by using automated script below.
 ```
-wget -O quasar-test.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Quasar/quasar-test.sh && chmod +x quasar-test.sh && ./quasar-test.sh
+wget -O quasar.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Quasar/quasar.sh && chmod +x quasar.sh && ./quasar.sh
 ```
 
 You can find more information about quasar testnet on links below:
