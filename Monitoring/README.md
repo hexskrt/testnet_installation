@@ -7,3 +7,57 @@ Prometheus and Grafana are two of the most popular open-source tools used for mo
 ## Prerequisites
 
 Before we jump to installation, there are a few prerequisites that need to be in place.
+
+- Ubuntu 20.04+ / 1 VCPU / 2 GB RAM / 20 GB SSD
+- Docker and Docker Compose 
+
+### Step 1 - Directory for Monitoring
+Create a new directory for Grafana and Prometheus configuration.
+```
+mkdir Monitoring
+```
+
+### Step 2 - Docker Compose 
+Create a new files named of docker-compose.yml inside "Monitoring" directory add input config on below:
+```
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+    - GF_AUTH_ANONYMOUS_ENABLED=true  
+```
+### Step 3 - Prometheus File
+We are still in the "Monitoring" folder. Create a new files named of prometheus.yml add input config on below:
+```
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['node-exporter:9100']
+  - job_name: "nolus-testnet"
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ["127.0.0.1:04660"] # Adjust with your "NOLUS PORT"! or You can use direct your IP Server
+```
+After you successfully create prometheus.yml then restart you prometheus, and make sure you have enable your prometheus setting from `false` to `true` on $HOME/.nolus/config/config.toml
+### Step 4 - Start the containers
+Use the following command to start the containers:
