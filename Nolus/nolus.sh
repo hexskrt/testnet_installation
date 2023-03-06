@@ -103,7 +103,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$NLS_DENOM\"/
 
 # Enable snapshots
 $NLS tendermint unsafe-reset-all --home $HOME/$NLS_FOLDER --keep-addr-book
-curl -L http://snap.hexskrt.net/nolus/nolust-latest.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.nolus
+curl -L https://snapshots.kjnodes.com/nolus-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nolus
 
 # Create Service
 sudo tee /etc/systemd/system/$NLS.service > /dev/null <<EOF
