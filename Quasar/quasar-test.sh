@@ -21,8 +21,8 @@ VERSION=0.0.2-alpha-11
 DENOM=uqsr
 BIN_REPO=https://github.com/quasar-finance/binary-release/raw/main/v0.0.2-alpha-11/quasarnoded-linux-amd64
 COSMOVISOR=cosmovisor
-GENESIS=https://snap.nodexcapital.com/quasar/genesis.json
-ADDRBOOK=https://snap.nodexcapital.com/quasar/addrbook.json
+GENESIS=https://snapshots.kjnodes.com/quasar-testnet/genesis.json
+ADDRBOOK=https://snapshots.kjnodes.com/quasar-testnet/addrbook.json
 PORT=08
 
 echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
@@ -112,24 +112,10 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$DENOM\"/" $HOME/$FOLDER/config/app.toml
 
-# Enable statesync
+# Enable Snapshot
 $BINARY tendermint unsafe-reset-all --home $HOME/$FOLDER --keep-addr-book
 
-SNAP_RPC="https://quasar-testnet.rpc.kjnodes.com:443"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo ""
-echo -e "\e[1m\e[31m[!]\e[0m HEIGHT : \e[1m\e[31m$LATEST_HEIGHT\e[0m BLOCK : \e[1m\e[31m$BLOCK_HEIGHT\e[0m HASH : \e[1m\e[31m$TRUST_HASH\e[0m"
-echo ""
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" \
-$HOME/$FOLDER/config/config.toml
+curl -L https://snapshots.kjnodes.com/quasar-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.quasarnode
 
 # Download latest wasm
 curl -L https://snapshots.kjnodes.com/quasar-testnet/wasm_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.quasarnode
