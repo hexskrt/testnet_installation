@@ -23,7 +23,7 @@ OJO_REPO=https://github.com/ojo-network/ojo.git
 OJO_GENESIS=https://snapshots.kjnodes.com/ojo-testnet/genesis.json
 OJO_ADDRBOOK=https://snapshots.kjnodes.com/ojo-testnet/addrbook.json
 OJO_DENOM=uojo
-OJO_PORT=10
+OJO_PORT=03
 
 echo "export OJO_WALLET=${OJO_WALLET}" >> $HOME/.bash_profile
 echo "export OJO=${OJO}" >> $HOME/.bash_profile
