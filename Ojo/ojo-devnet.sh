@@ -23,7 +23,7 @@ OJO_REPO=https://github.com/ojo-network/ojo.git
 OJO_GENESIS=https://snapshots.kjnodes.com/ojo-testnet/genesis.json
 OJO_ADDRBOOK=https://snapshots.kjnodes.com/ojo-testnet/addrbook.json
 OJO_DENOM=uojo
-OJO_PORT=03
+OJO_PORT=10
 
 echo "export OJO_WALLET=${OJO_WALLET}" >> $HOME/.bash_profile
 echo "export OJO=${OJO}" >> $HOME/.bash_profile
@@ -109,7 +109,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$OJO_DENOM\"/
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$OJO_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$OJO_FOLDER/config/app.toml
 $OJO tendermint unsafe-reset-all --home $HOME/$OJO_FOLDER
-curl -L https://snapshots.kjnodes.com/ojo-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.ojo | lz4 -dc - | tar -xf - -C $HOME/$OJO_FOLDER
+curl -L curl -L https://ojo-t.service.indonode.net/ojo-snapshot.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.ojo
 
 # Create Service
 sudo tee /etc/systemd/system/$OJO.service > /dev/null <<EOF
