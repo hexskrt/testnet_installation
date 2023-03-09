@@ -32,7 +32,7 @@ sleep 1
 if [ ! $OJO_WALLET1 ]; then
     echo -e "EXAMPLE : \e[1m\e[31mwallet\e[0m"
     echo ""
-	read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR MAIN WALLET NAME] > " OJO_WALLET1
+	read -p "hexskrt@hexnodes:~# [ENTER YOUR MAIN WALLET NAME] > " OJO_WALLET1
 fi
 
 # Set Wallet Price Feeder
@@ -40,7 +40,7 @@ if [ ! $OJO_WALLET_PRICEFEEDER ]; then
     echo ""
     echo -e "EXAMPLE : \e[1m\e[31mpricefeeder-wallet\e[0m"
     echo ""
-	read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR WALLET PRICE FEEDER NAME] > " OJO_WALLET_PRICEFEEDER
+	read -p "hexskrt@hexnodes:~# [ENTER YOUR WALLET PRICE FEEDER NAME] > " OJO_WALLET_PRICEFEEDER
 fi
 
 # Set Wallet Price Feeder Password
@@ -48,7 +48,7 @@ if [ ! $OJO_WALLET_PRICEFEEDER_PASSWORD ]; then
     echo ""
     echo -e "EXAMPLE : \e[1m\e[31mpassword123\e[0m"
     echo ""
-	read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR WALLET PRICE FEEDER PASSWORD] > " OJO_WALLET_PRICEFEEDER_PASSWORD
+	read -p "hexskrt@hexnodes:~# [ENTER YOUR WALLET PRICE FEEDER PASSWORD] > " OJO_WALLET_PRICEFEEDER_PASSWORD
 fi
 
 # Variable Ojo
