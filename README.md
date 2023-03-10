@@ -11,3 +11,4 @@
 |**[**Nolus**](https://github.com/hexskrt/testnet_installation/blob/main/Nolus)**|07|nolus-rila|v0.1.43|
 |**[**Quasar**](https://github.com/hexskrt/testnet_installation/tree/main/Andromeda)**|08|qsr-questnet-04|v0.0.2-alpha-11|
 |**[**SAO-Network**](https://github.com/hexskrt/testnet_installation/tree/main/SAO-Network)**|09|sao-testnet0|testnet0|
+|**[**OJO-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Ojo)**|10|ojo-devnet|v0.1.2|
