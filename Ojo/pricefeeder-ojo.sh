@@ -1,5 +1,5 @@
 #
-# // Copyright (C) 2023 Salman Wahib (sxlmnwb)
+# // Copyright (C) 2023 Salman Wahib (sxlmnwb) Recoded by Hexnodes
 #
 
 echo ""
