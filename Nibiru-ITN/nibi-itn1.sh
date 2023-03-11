@@ -20,8 +20,8 @@ NIBI_ID=nibiru-itn-1
 NIBI_FOLDER=.nibid
 NIBI_VER=v0.19.2
 NIBI_REPO=https://github.com/NibiruChain/nibiru.git
-NIBI_GENESIS=https://snapshot.yeksin.net/nibiru/genesis.json
-NIBI_ADDRBOOK=https://ss-t.nibiru.nodestake.top/addrbook.json
+NIBI_GENESIS=https://snapshots.kjnodes.com/nibiru-testnet/genesis.json
+NIBI_ADDRBOOK=https://snapshots.kjnodes.com/nibiru-testnet/addrbook.json
 NIBI_DENOM=unibi
 NIBI_PORT=06
 
@@ -80,9 +80,7 @@ $NIBI config node tcp://localhost:${NIBI_PORT}657
 $NIBI init $NIBI_NODENAME --chain-id $NIBI_ID
 
 # Set peers and seeds
-PEERS="e2b8b9f3106d669fe6f3b49e0eee0c5de818917e@213.239.217.52:32656,930b1eb3f0e57b97574ed44cb53b69fb65722786@144.76.30.36:15662,ad002a4592e7bcdfff31eedd8cee7763b39601e7@65.109.122.105:36656,4a81486786a7c744691dc500360efcdaf22f0840@15.235.46.50:26656,68874e60acc2b864959ab97e651ff767db47a2ea@65.108.140.220:26656,d5519e378247dfb61dfe90652d1fe3e2b3005a5b@65.109.68.190:39656"
-SEEDS="a431d3d1b451629a21799963d9eb10d83e261d2c@seed-1.itn-1.nibiru.fi:26656,6a78a2a5f19c93661a493ecbe69afc72b5c54117@seed-2.itn-1.nibiru.fi:26656"
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$NIBI_FOLDER/config/config.toml
+SEEDS="3f472746f46493309650e5a033076689996c8881@nibiru-testnet.rpc.kjnodes.com:39659"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$NIBI_FOLDER/config/config.toml
 
 # Download genesis and addrbook
