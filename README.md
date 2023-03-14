@@ -9,6 +9,6 @@
 |**[**GOA - Ordos**](https://github.com/hexskrt/testnet_installation/tree/main/GOA)**|05|ordos-1|v0.1.0-goa|
 |**[**Nibiru**](https://github.com/hexskrt/testnet_installation/tree/main/Nibiru-ITN)**|06|nibiru-itn-1|v0.19.2|
 |**[**Nolus**](https://github.com/hexskrt/testnet_installation/blob/main/Nolus)**|07|nolus-rila|v0.1.43|
-|**[**Quasar**](https://github.com/hexskrt/testnet_installation/tree/main/Andromeda)**|08|qsr-questnet-04|v0.0.2-alpha-11|
+|**[**Quasar**](https://github.com/hexskrt/testnet_installation/tree/main/Quasar)**|08|qsr-questnet-04|v0.0.2-alpha-11|
 |**[**SAO-Network**](https://github.com/hexskrt/testnet_installation/tree/main/SAO-Network)**|09|sao-testnet0|testnet0|
 |**[**OJO-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Ojo)**|10|ojo-devnet|v0.1.2|
