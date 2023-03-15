@@ -105,7 +105,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$SAO_DENOM\"/
 
 # Enable Snapshot
 $SAO tendermint unsafe-reset-all --home $HOME/$SAO_FOLDER --keep-addr-book
-curl -L https://snapcrot.hexskrt.net/sao/sao.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$SAO_FOLDER
+curl -L http://snapcrot.hexskrt.net/sao/sao.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$SAO_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$SAO.service > /dev/null <<EOF
