@@ -97,11 +97,6 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$SAO_DENOM\"/" $HOME/$SAO_FOLDER/config/app.toml
 
-# Enable snapshots
-$SAO tendermint unsafe-reset-all --home $HOME/$SAO_FOLDER --keep-addr-book
-SNAP_NAME=$(curl -s https://ss-t.sao.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
-curl -o - -L https://ss-t.sao.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/.sao
-
 # Create Service
 sudo tee /etc/systemd/system/$SAO.service > /dev/null <<EOF
 [Unit]
