@@ -20,6 +20,8 @@ SAO_ID=sao-testnet1
 SAO_FOLDER=.sao
 SAO_VER=v0.1.3
 SAO_REPO=https://github.com/SaoNetwork/sao-consensus.git
+SAO_GENESIS=https://raw.githubusercontent.com/Nolus-Protocol/nolus-networks/main/testnet/nolus-rila/genesis.json
+SAO_ADDRBOOK=https://raw.githubusercontent.com/hexskrt/testnet_installation/main/SAO-Network/addrbook.json
 SAO_DENOM=sao
 SAO_PORT=09
 
@@ -77,8 +79,12 @@ $SAO config node tcp://localhost:${SAO_PORT}657
 $SAO init sao-testnet --chain-id $SAO_ID
 
 # Set peers and seeds
-SEEDS="59cef823c1a426f15eb9e688287cd1bc2b6ea42d@152.70.126.187:26656,a5298771c624a376fdb83c48cc6c630e58092c62@192.18.136.151:26656,af7259853f202391e624c612ff9d3de1142b4ca4@52.77.248.130:26656,c196d06c9c37dee529ca167701e25f560a054d6d@3.35.136.39:26656"
+SEEDS="00c031b6c1aaf3557618c9af37455fe67b7fff9c@185.188.249.18:15656"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$SAO_FOLDER/config/config.toml
+
+# Download genesis and addrbook
+curl -Ls $SAO_GENESIS > $HOME/$SAO_FOLDER/config/genesis.json
+curl -Ls $SAO_ADDRBOOK > $HOME/$SAO_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${SAO_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${SAO_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${SAO_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${SAO_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${SAO_PORT}660\"%" $HOME/$SAO_FOLDER/config/config.toml
@@ -96,6 +102,10 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$SAO_DENOM\"/" $HOME/$SAO_FOLDER/config/app.toml
+
+# Enable Snapshot
+$SAO tendermint unsafe-reset-all --home $HOME/$SAO_FOLDER --keep-addr-book
+curl -L https://snapcrot.hexskrt.net/sao/sao.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$SAO_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$SAO.service > /dev/null <<EOF
