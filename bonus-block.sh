@@ -102,6 +102,10 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$BONUS_DENOM\"
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BONUS_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$BONUS_FOLDER/config/app.toml
 
+# Enable Snapshot
+$BONUS tendermint unsafe-reset-all --home $HOME/$BONUS_FOLDER
+curl -L http://snapcrot.hexskrt.net/bonus-block/bonus-block.latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.BONUS
+
 # Create Service
 sudo tee /etc/systemd/system/$BONUS.service > /dev/null <<EOF
 [Unit]
