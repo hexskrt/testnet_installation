@@ -104,7 +104,7 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$BO
 
 # Enable Snapshot
 $BONUS tendermint unsafe-reset-all --home $HOME/$BONUS_FOLDER
-curl -L http://snapcrot.hexskrt.net/bonus-block/bonus-block.latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.bonusblock
+curl -L http://snapcrot.hexskrt.net/bonus-block/bonus-block.latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$BONUS_FOLDER
 # Create Service
 sudo tee /etc/systemd/system/$BONUS.service > /dev/null <<EOF
 [Unit]
