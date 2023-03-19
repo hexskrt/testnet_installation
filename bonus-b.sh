@@ -77,9 +77,10 @@ $BONUS init $BONUS_NODENAME --chain-id $BONUS_ID
 # Set peers and seeds
 SEEDS="e5e04918240cfe63e20059a8abcbe62f7eb05036@bonusblock-testnet-p2p.alter.network:26656"
 PEERS=""
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.BONUSmedad/config/config.toml
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$BONUS_FOLDER/config/config.toml
 
 # Download genesis
+rm ~/$BONUS_FOLDER/config/genesis.json
 curl -Ls $BONUS_GENESIS > $HOME/$BONUS_FOLDER/config/genesis.json
 
 # Set Port
