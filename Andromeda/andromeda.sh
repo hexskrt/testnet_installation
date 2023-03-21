@@ -101,12 +101,23 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$ANDRO_DENOM\"/" $HOME/$ANDRO_FOLDER/config/app.toml
 
 # Set config snapshot
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$ANDRO_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$ANDRO_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ANDRO_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$ANDRO_FOLDER/config/app.toml
 
-# Enable Snapshot
+# Enable State Sync
 $ANDRO tendermint unsafe-reset-all --home $HOME/$ANDRO_FOLDER
-curl -L https://snapshots.kjnodes.com/andromeda-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.andromedad
+SNAP_RPC="https://rpc-andromeda.sxlzptprjkt.xyz:443"
+STATESYNC_PEERS="8870aca1936673bb2068ed07fcadc6c46d3ec3a1@146.190.83.6:22656"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$ANDRO_FOLDER/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/$ANDRO_FOLDER/config/config.toml
 
 # Create Service
 sudo tee /etc/systemd/system/$ANDRO.service > /dev/null <<EOF
