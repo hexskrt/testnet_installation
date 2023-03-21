@@ -117,9 +117,21 @@ sed -i 's|^timeout_commit *=.*|timeout_commit = "10s"|g' $HOME/$BBN_FOLDER/confi
 
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$ANDRO_FOLDER/config/app.toml
 $BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER --keep-addr-book
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/ | egrep -o ">bbn-test1.*\.tar.lz4" | tr -d ">")
-curl -L https://snapshots1-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf - -C $HOME/$BBN_FOLDER
+
+SNAP_RPC="https://rpc-babylon.sxlzptprjkt.xyz:443"
+STATESYNC_PEERS="4ffd7f9202c58df4afec210f22da732023e476c8@46.101.144.90:24656"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$BABY_FOLDER/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/$BABY_FOLDER/config/config.toml
 
 # Create Service
 sudo tee /etc/systemd/system/$BBN.service > /dev/null <<EOF
