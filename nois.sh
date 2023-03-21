@@ -19,10 +19,10 @@ NOIS=noisd
 NOIS_ID=nois-testnet-004
 NOIS_FOLDER=.noisd
 NOIS_VER=v0.6.0
-NOIS_REPO=https://github.com/noislabs/full-node.git
+NOIS_REPO=https://github.com/noislabs/noisd.git
 NOIS_GENESIS=https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-004/genesis.json
 NOIS_DENOM=unois
-NOIS_PORT=13
+NOIS_PORT=14
 
 echo "export NOIS_WALLET=${NOIS_WALLET}" >> $HOME/.bash_profile
 echo "export NOIS=${NOIS}" >> $HOME/.bash_profile
