@@ -76,7 +76,7 @@ sudo mv ~/go/bin/$OJO /usr/local/bin/$OJO
 
 # Init generation
 $OJO config chain-id $OJO_ID
-lumenxd config keyring-backend file
+$OJO config keyring-backend test
 $OJO config node tcp://localhost:${OJO_PORT}657
 $OJO init $OJO_NODENAME --chain-id $OJO_ID
 
