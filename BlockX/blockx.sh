@@ -28,7 +28,7 @@ PORT=116
 
 # Set Vars
 if [ ! $NODENAME ]; then
-        read -p "hello@nodexcapital:~# [ENTER YOUR NODENAME] > " NODENAME
+        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODENAME] > " NODENAME
         echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
 fi
 
@@ -129,7 +129,7 @@ sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$FOLDE
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$FOLDER --keep-addr-book
 SNAP_NAME=$(curl -s https://ss-t.blockx.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
-curl -o - -L https://ss-t.blockx.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$BLOCK_FOLDER
+curl -o - -L https://ss-t.blockx.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
