@@ -1,5 +1,5 @@
 #
-# // Copyright (C) 2023 Salman Wahib Recoded By Hexnodes
+# // Copyright (C) 2023 Nodex Recoded By Hexnodes
 #
 
 echo -e "\033[0;32m"
