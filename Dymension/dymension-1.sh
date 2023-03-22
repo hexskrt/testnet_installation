@@ -73,7 +73,7 @@ make install
 
 # Init generation
 $DYMENSION config chain-id $DYMENSION_ID
-$DYMENSION config keyring-backend file
+$DYMENSION config keyring-backend test
 $DYMENSION config node tcp://localhost:${DYMENSION_PORT}657
 $DYMENSION init $DYMENSION_NODENAME --chain-id $DYMENSION_ID
 
