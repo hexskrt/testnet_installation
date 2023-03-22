@@ -126,6 +126,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 
 # Set Interval & Snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$FOLDER --keep-addr-book
 SNAP_NAME=$(curl -s https://ss-t.blockx.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
 curl -o - -L https://ss-t.blockx.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$BLOCK_FOLDER
