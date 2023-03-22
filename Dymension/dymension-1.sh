@@ -21,8 +21,8 @@ DYMENSION_VER=v0.2.0-beta
 DYMENSION_REPO=https://github.com/dymensionxyz/dymension
 DYMENSION_DENOM=udym
 DYMENSION_PORT=04
-DYMENSION_GENESIS=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/genesis.json
-DYMENSION_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/addrbook.json
+DYMENSION_GENESIS=https://snap.hexnodes.co/dymension/genesis.json
+DYMENSION_ADDRBOOK=https://snap.hexnodes.co/dymension/addrbook.json
 
 echo "export DYMENSION_WALLET=${DYMENSION_WALLET}" >> $HOME/.bash_profile
 echo "export DYMENSION=${DYMENSION}" >> $HOME/.bash_profile
@@ -54,7 +54,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.5"
+ver="1.19.6"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -111,8 +111,8 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$DY
 # Enable state sync
 $DYMENSION tendermint unsafe-reset-all --home $HOME/$DYMENSION_FOLDER --keep-addr-book
 
-STATE_SYNC_RPC=https://dymension-testnet.rpc.kjnodes.com:443
-STATE_SYNC_PEER=d5519e378247dfb61dfe90652d1fe3e2b3005a5b@dymension-testnet.rpc.kjnodes.com:46656
+SNAP_RPC="https://rpc-test.dymension.hexnodes.co:443"
+STATE_SYNC_PEER="d34a47b39ca0d9b254df83046be998624622abe3@rpc-test.dymension.hexnodes.co:04656"
 LATEST_HEIGHT=$(curl -s $STATE_SYNC_RPC/block | jq -r .result.block.header.height)
 SYNC_BLOCK_HEIGHT=$(($LATEST_HEIGHT - 2000))
 SYNC_BLOCK_HASH=$(curl -s "$STATE_SYNC_RPC/block?height=$SYNC_BLOCK_HEIGHT" | jq -r .result.block_id.hash)
@@ -123,7 +123,7 @@ sed -i \
   -e "s|^trust_height *=.*|trust_height = $SYNC_BLOCK_HEIGHT|" \
   -e "s|^trust_hash *=.*|trust_hash = \"$SYNC_BLOCK_HASH\"|" \
   -e "s|^persistent_peers *=.*|persistent_peers = \"$STATE_SYNC_PEER\"|" \
-  $HOME/.dymension/config/config.toml
+  $HOME/$DYMENSION_FOLDER/config/config.toml
 
 # Create Service
 sudo tee /etc/systemd/system/$DYMENSION.service > /dev/null <<EOF
