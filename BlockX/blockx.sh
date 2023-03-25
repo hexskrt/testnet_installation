@@ -78,7 +78,7 @@ curl -Ls https://go.dev/dl/go1.19.7.linux-amd64.tar.gz | sudo tar -xzf - -C /usr
 eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
 eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
-# Get testnet version of LAVA
+# Get testnet version of BlockX
 cd $HOME
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 
