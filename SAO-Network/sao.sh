@@ -20,8 +20,8 @@ SAO_ID=sao-testnet1
 SAO_FOLDER=.sao
 SAO_VER=v0.1.3
 SAO_REPO=https://github.com/SaoNetwork/sao-consensus.git
-SAO_GENESIS= https://raw.githubusercontent.com/hexskrt/testnet_installation/main/SAO-Network/genesis.json
-SAO_ADDRBOOK=https://raw.githubusercontent.com/hexskrt/testnet_installation/main/SAO-Network/addrbook.json
+SAO_GENESIS=https://snap.hexnodes.co/sao/genesis.json
+SAO_ADDRBOOK=https://snap.hexnodes.co/sao/addrbook.json
 SAO_DENOM=sao
 SAO_PORT=09
 
@@ -105,7 +105,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$SAO_DENOM\"/
 
 # Enable Snapshot
 $SAO tendermint unsafe-reset-all --home $HOME/$SAO_FOLDER --keep-addr-book
-curl -L http://snapcrot.hexskrt.net/sao/sao.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$SAO_FOLDER
+curl -L https://snap.hexnodes.co/sao/sao.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$SAO_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$SAO.service > /dev/null <<EOF
