@@ -21,8 +21,8 @@ DYMENSION_VER=v0.2.0-beta
 DYMENSION_REPO=https://github.com/dymensionxyz/dymension
 DYMENSION_DENOM=udym
 DYMENSION_PORT=04
-DYMENSION_GENESIS=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/genesis.json
-DYMENSION_ADDRBOOK=https://raw.githubusercontent.com/obajay/nodes-Guides/main/Dymension/addrbook.json
+DYMENSION_GENESIS=https://snap.hexnodes.co/dymension/genesis.json
+DYMENSION_ADDRBOOK=https://snap.hexnodes.co/dymension/addrbook.json
 
 echo "export DYMENSION_WALLET=${DYMENSION_WALLET}" >> $HOME/.bash_profile
 echo "export DYMENSION=${DYMENSION}" >> $HOME/.bash_profile
@@ -54,7 +54,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.5"
+ver="1.19.6"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -105,12 +105,12 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DYMENSION_DENOM\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
 
 # Set config snapshot
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
 
 # Enable snapshot
 $DYMENSION tendermint unsafe-reset-all --home $HOME/$DYMENSION_FOLDER --keep-addr-book
-curl -o - -L https://snapshot.yeksin.net/dymension/data.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$DYMENSION_FOLDER
+curl -L https://snap.hexnodes.co/dymension/dymension.latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$DYMENSION_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$DYMENSION.service > /dev/null <<EOF
