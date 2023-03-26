@@ -23,7 +23,7 @@ NOIS_REPO=https://github.com/noislabs/noisd.git
 NOIS_GENESIS=https://snap.hexnodes.co/nois/genesis.json
 NOIS_ADDRBOOK=https://snap.hexnodes.co/nois/addrbook.json
 NOIS_DENOM=unois
-NOIS_PORT=14
+NOIS_PORT=12
 
 echo "export NOIS_WALLET=${NOIS_WALLET}" >> $HOME/.bash_profile
 echo "export NOIS=${NOIS}" >> $HOME/.bash_profile
