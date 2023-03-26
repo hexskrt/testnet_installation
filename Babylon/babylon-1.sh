@@ -19,8 +19,8 @@ BBN_ID=bbn-test1
 BBN_FOLDER=.babylond
 BBN_VER=v0.5.0
 BBN_REPO=https://github.com/babylonchain/babylon
-BBN_GENESIS=https://snapshot.yeksin.net/babylon/genesis.json
-BBN_ADDRBOOK=https://snapshots1-testnet.nodejumper.io/babylon-testnet/addrbook.json
+BBN_GENESIS=https://snap.hexnodes.co/babylon/genesis.json
+BBN_ADDRBOOK=https://snap.hexnodes.co/babylon/addrbook.json
 BBN_DENOM=ubbn
 BBN_PORT=02
 
