@@ -20,7 +20,8 @@ NOIS_ID=nois-testnet-004
 NOIS_FOLDER=.noisd
 NOIS_VER=v0.6.0
 NOIS_REPO=https://github.com/noislabs/noisd.git
-NOIS_GENESIS=https://raw.githubusercontent.com/noislabs/testnets/main/nois-testnet-004/genesis.json
+NOIS_GENESIS=https://snap.hexnodes.co/nois/genesis.json
+NOIS_ADDRBOOK=https://snap.hexnodes.co/nois/addrbook.json
 NOIS_DENOM=unois
 NOIS_PORT=14
 
@@ -95,6 +96,7 @@ sed -i 's/^timeout_propose =.*$/timeout_propose = "2000ms"/' $NOIS_FOLDER/config
 
 # Download genesis and addrbook
 curl -Ls $NOIS_GENESIS > $HOME/$NOIS_FOLDER/config/genesis.json
+curl -Ls $NOIS_ADDRBOOK > $HOME/$NOIS_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${NOIS_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${NOIS_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${NOIS_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${NOIS_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${NOIS_PORT}660\"%" $HOME/$NOIS_FOLDER/config/config.toml
@@ -116,6 +118,8 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$NOIS_DENOM\"
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$NOIS_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$NOIS_FOLDER/config/app.toml
+$NOIS tendermint unsafe-reset-all --home $HOME/$NOIS_FOLDER --keep-addr-book
+curl -L https://snap.hexnodes.co/nois/nois.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$NOIS_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$NOIS.service > /dev/null <<EOF
