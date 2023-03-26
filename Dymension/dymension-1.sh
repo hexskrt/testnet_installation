@@ -95,7 +95,7 @@ sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${D
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
-pruning_interval="50"
+pruning_interval="19"
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
 sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
@@ -106,7 +106,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DYMENSION_DEN
 
 # Set config snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"1000\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
-sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"2\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
+sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$DYMENSION_FOLDER/config/app.toml
 
 # Enable state sync
 $DYMENSION tendermint unsafe-reset-all --home $HOME/$DYMENSION_FOLDER --keep-addr-book
