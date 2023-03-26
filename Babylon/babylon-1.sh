@@ -38,7 +38,7 @@ source $HOME/.bash_profile
 
 # Set Vars
 if [ ! $BBN_NODENAME ]; then
-        read -p "sxlzptprjkt@w00t666w00t:~# [ENTER YOUR NODE] > " BBN_NODENAME
+        read -p "hexskrt@hexnodes:~# [ENTER YOUR NODE] > " BBN_NODENAME
         echo 'export BBN_NODENAME='$BBN_NODENAME >> $HOME/.bash_profile
 fi
 echo ""
@@ -54,7 +54,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.5"
+ver="1.19.6"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -119,19 +119,7 @@ sed -i 's|^timeout_commit *=.*|timeout_commit = "10s"|g' $HOME/$BBN_FOLDER/confi
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BBN_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$BBN_FOLDER/config/app.toml
 $BBN tendermint unsafe-reset-all --home $HOME/$BBN_FOLDER --keep-addr-book
-
-SNAP_RPC="https://rpc-babylon.sxlzptprjkt.xyz:443"
-STATESYNC_PEERS="4ffd7f9202c58df4afec210f22da732023e476c8@46.101.144.90:24656"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$BBN_FOLDER/config/config.toml
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/$BBN_FOLDER/config/config.toml
+curl -L https://snap.hexnodes.co/babylon/babylon.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$BBN_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$BBN.service > /dev/null <<EOF
