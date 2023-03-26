@@ -22,8 +22,8 @@ VERSION=0.1.1-test
 DENOM=abcx
 BIN_REPO=https://github.com/defi-ventures/blockx-node-public-compiled/releases/download/v9.0.0/blockxd
 COSMOVISOR=cosmovisor
-GENESIS=https://snap.nodexcapital.com/blockx/genesis.json
-ADDRBOOK=https://snap.nodexcapital.com/blockx/addrbook.json
+GENESIS=https://snap.hexnodes.co/blockx/genesis.json
+ADDRBOOK=https://snap.hexnodes.co/blockx/addrbook.json
 PORT=116
 
 # Set Vars
