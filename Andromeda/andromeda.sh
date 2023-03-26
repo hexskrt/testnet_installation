@@ -19,6 +19,8 @@ ANDRO_ID=galileo-3
 ANDRO_FOLDER=.andromedad
 ANDRO_VER=galileo-3-v1.1.0-beta1
 ANDRO_REPO=https://github.com/andromedaprotocol/andromedad.git
+ANDRO_ADDRBOOK=https://snap.hexnodes.co/andromeda/addrbook.json
+ANDRO_GENESIS=https://snap.hexnodes.co/andromeda/genesis.json
 ANDRO_DENOM=uandr
 ANDRO_PORT=01
 
@@ -50,7 +52,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.5"
+ver="1.19.6"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -80,8 +82,9 @@ SEEDS=""
 PEERS="117bf8ca700de022d9c87cd7cc7155958dc0ba23@185.188.249.18:02656,06d4ab2369406136c00a839efc30ea5df9acaf11@10.128.0.44:26656,43d667323445c8f4d450d5d5352f499fa04839a8@192.168.0.237:26656,29a9c5bfb54343d25c89d7119fade8b18201c503@192.168.101.79:26656,6006190d5a3a9686bbcce26abc79c7f3f868f43a@37.252.184.230:26656"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.andromedad/config/config.toml
 
-# Create file genesis.json
-touch $HOME/$ANDRO_FOLDER/config/genesis.json
+# Download genesis and addrbook
+curl -Ls $ANDRO_GENESIS > $HOME/$ANDRO_FOLDER/config/genesis.json
+curl -Ls $ANDRO_ADDRBOOK > $HOME/$ANDRO_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${ANDRO_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${ANDRO_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${ANDRO_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${ANDRO_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${ANDRO_PORT}660\"%" $HOME/$ANDRO_FOLDER/config/config.toml
