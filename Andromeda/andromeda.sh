@@ -106,18 +106,7 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$AN
 
 # Enable State Sync
 $ANDRO tendermint unsafe-reset-all --home $HOME/$ANDRO_FOLDER
-SNAP_RPC="https://rpc-andromeda.sxlzptprjkt.xyz:443"
-STATESYNC_PEERS="8870aca1936673bb2068ed07fcadc6c46d3ec3a1@146.190.83.6:22656"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/$ANDRO_FOLDER/config/config.toml
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$STATESYNC_PEERS\"|" $HOME/$ANDRO_FOLDER/config/config.toml
+curl -L https://snap.hexnodes.co/andromeda/andromeda.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.andromedad
 
 # Create Service
 sudo tee /etc/systemd/system/$ANDRO.service > /dev/null <<EOF
