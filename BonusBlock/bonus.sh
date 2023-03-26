@@ -18,6 +18,8 @@ BONUS=bonus-blockd
 BONUS_ID=blocktopia-01
 BONUS_FOLDER=.bonusblock
 BONUS_REPO=https://github.com/BBlockLabs/BonusBlock-chain
+BONUS_ADDRBOOK=https://snap.hexnodes.co/bonus-block/addrbook.json
+BONUS_GENESIS=https://snap.hexnodes.co/bonus-block/genesis.json
 BONUS_DENOM=ubonus
 BONUS_PORT=13
 
@@ -77,9 +79,9 @@ SEEDS="e5e04918240cfe63e20059a8abcbe62f7eb05036@bonusblock-testnet-p2p.alter.net
 PEERS=""
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$BONUS_FOLDER/config/config.toml
 
-# Download genesis
-rm ~/$BONUS_FOLDER/config/genesis.json
-curl https://bonusblock-testnet.alter.network/genesis? | jq '.result.genesis' > ~/.bonusblock/config/genesis.json
+# Download Genesis & Addrbook
+curl -Ls $BONUS_GENESIS > $HOME/$BONUS_FOLDER/config/genesis.json
+curl -Ls $BONUS_ADDRBOOK > $HOME/$BONUS_FOLDER/config/addrbook.json
 
 # Set Port
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${BONUS_PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${BONUS_PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${BONUS_PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${BONUS_PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${BONUS_PORT}660\"%" $HOME/$BONUS_FOLDER/config/config.toml
@@ -101,6 +103,10 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$BONUS_DENOM\"
 # Set config snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BONUS_FOLDER/config/app.toml
 sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$BONUS_FOLDER/config/app.toml
+
+# Enable Snapshot
+$BONUS tendermint unsafe-reset-all --home $HOME/$BONUS_FOLDER --keep-addr-book
+curl -L https://snap.hexnodes.co/bonus-block/bonus-block.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$BONUS_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$BONUS.service > /dev/null <<EOF
