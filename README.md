@@ -14,4 +14,4 @@
 |**[**OJO-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Ojo)**|10|ojo-devnet|v0.1.2|
 |**[**BlockX-Network**](https://github.com/hexskrt/testnet_installation/tree/main/BlockX)**|11|blockx_12345-2|v0.1.1-test|
 |**[**Nois-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Nois-Network)**|12|nois-testnet-004|v0.6.0|
-|**[**Bonus-Blockchain**](https://github.com/hexskrt/testnet_installation/tree/main/BonusBlock)**|13|blocktopia-01
+|**[**Bonus-Blockchain**](https://github.com/hexskrt/testnet_installation/tree/main/BonusBlock)**|13|blocktopia-01|-|
