@@ -19,8 +19,8 @@ TERP_ID=athena-4
 TERP_FOLDER=.terp
 TERP_VERSION=v0.4.0
 TERP_REPO=https://github.com/terpnetwork/terp-core.git
-TERP_ADDRBOOK=https://snapshots1-testnet.nodejumper.io/terpnetwork-testnet/addrbook.json
-TERP_GENESIS=https://raw.githubusercontent.com/terpnetwork/test-net/master/athena-4/genesis.json
+TERP_ADDRBOOK=https://snap.hexnodes.co/terp/addrbook.json
+TERP_GENESIS=https://snap.hexnodes.co/terp/genesis.json
 TERP_DENOM=uterpx
 TERP_PORT=16
 
