@@ -22,7 +22,7 @@ TERP_REPO=https://github.com/terpnetwork/terp-core.git
 TERP_ADDRBOOK=https://snap.hexnodes.co/terp/addrbook.json
 TERP_GENESIS=https://snap.hexnodes.co/terp/genesis.json
 TERP_DENOM=uterpx
-TERP_PORT=16
+TERP_PORT=14
 
 echo "export TERP_WALLET=${TERP_WALLET}" >> $HOME/.bash_profile
 echo "export TERP=${TERP}" >> $HOME/.bash_profile
