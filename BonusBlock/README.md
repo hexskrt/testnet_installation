@@ -15,4 +15,4 @@ wget -O bonus.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/
 
 You can find more information about Bonus Blockchain testnet on links below:
 
-**https://hexskrt.net/testnet/bonusblock**
+>- **https://hexskrt.net/testnet/bonusblock**
