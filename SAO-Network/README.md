@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/sao.png?raw=true">
+  <img height="100" height="auto" src="https://github.com/hexskrt/logos/blob/main/sao.jpg?raw=true">
 </p>
 
 # Sao-Network Testnet | Chain ID : sao-testnet1
