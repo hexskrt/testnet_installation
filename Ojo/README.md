@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/ojo.png?raw=true">
+  <img height="100" height="auto" src="https://github.com/hexskrt/logos/blob/main/ojo.jpg?raw=true">
 </p>
 
 # Ojo-Network Testnet | Chain ID : ojo-devnet
