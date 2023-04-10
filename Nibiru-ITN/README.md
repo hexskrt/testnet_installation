@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="100" height="auto" src="https://github.com/hexskrt/explorer/blob/master/public/logos/nibiru.png?raw=true">
+  <img height="100" height="auto" src="https://github.com/hexskrt/logos/blob/main/nibiru.jpg?raw=true">
 </p>
 
 # Nibiru-ITN Testnet | Chain ID : nibiru-itn-1
