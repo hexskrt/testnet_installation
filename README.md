@@ -16,3 +16,4 @@
 |**[**Nois-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Nois-Network)**|12|nois-testnet-004|v0.6.0|
 |**[**Bonus-Blockchain**](https://github.com/hexskrt/testnet_installation/tree/main/BonusBlock)**|13|blocktopia-01|-|
 |**[**Terp-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Terp-Network)**|14|athena-4|v0.4.0|
+|**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|15|athena-4|v0.4.0|
