@@ -58,7 +58,7 @@ go version
 
 # Get version of ELYSIO Network
 cd $HOME
-rm -rf ELYS-core
+rm -rf elys
 cd $HOME
 git clone $ELYS_REPO
 cd elys
