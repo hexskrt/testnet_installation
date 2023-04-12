@@ -19,8 +19,8 @@ ELYS_ID=elystestnet-1
 ELYS_FOLDER=.elys
 ELYS_VERSION=v0.2.3
 ELYS_REPO=https://github.com/elys-network/elys
-ELYS_ADDRBOOK=https://snapshots.polkachu.com/testnet-addrbook/elys/addrbook.json
-ELYS_GENESIS=https://snapshots.polkachu.com/testnet-genesis/elys/genesis.json
+ELYS_ADDRBOOK=https://snap.hexnodes.co/elys/addrbook.json
+ELYS_GENESIS=https://snap.hexnodes.co/elys/genesis.json
 ELYS_DENOM=uelys
 ELYS_PORT=15
 
@@ -104,7 +104,7 @@ sed -i -e "s/^snapshot-keep-recent *=.*/snapshot-keep-recent = \"5\"/" $HOME/$EL
 
 # Enable Snapshot
 $ELYS tendermint unsafe-reset-all --home $HOME/$ELYS_FOLDER --keep-addr-book
-curl -L https://snapshots.polkachu.com/testnet-snapshots/elys/elys_1421.tar.lz4  | tar -Ilz4 -xf - -C $HOME/$ELYS_FOLDER
+curl -L https://snap.hexnodes.co/elys/elys.latest.tar.lz4  | tar -Ilz4 -xf - -C $HOME/$ELYS_FOLDER
 
 # Create Service
 sudo tee /etc/systemd/system/$ELYS.service > /dev/null <<EOF
