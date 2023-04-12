@@ -15,4 +15,4 @@ wget -O elys.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/m
 
 You can find more information about Elys Network testnet on links below:
 
-**https://hexskrt.net/testnet/elys**
+>- **https://hexskrt.net/testnet/elys**
