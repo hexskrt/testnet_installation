@@ -74,7 +74,7 @@ $ELYS init $ELYS_NODENAME --chain-id $ELYS_ID
 
 # Set peers and seeds
 SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:22056"
-PEERS=""
+PEERS="$(curl -sS https://rpc-test.elys.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/$ELYS_FOLDER/config/config.toml
 
 # Download Genesis & Addrbook
