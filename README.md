@@ -18,3 +18,4 @@
 |**[**Terp-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Terp-Network)**|14|athena-4|v0.4.0|
 |**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|15|elystestnet-1|v0.2.3|
 |**[**Althea-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Althea)**|16|althea_7357-1|v0.3.2|
+|**[**Cascadia**](https://github.com/hexskrt/testnet_installation/tree/main/Cascadia)**|17|cascadia_6102-1|v0.1.1|
