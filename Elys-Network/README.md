@@ -10,7 +10,7 @@
 ### Automatic Installer
 You can setup your Elys Network fullnode in few minutes by using automated script below.
 ```
-wget -O elys.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Dymension/elys.sh && chmod +x elys.sh && ./elys.sh
+wget -O elys.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Elys-Network/elys.sh && chmod +x elys.sh && ./elys.sh
 ```
 
 You can find more information about Elys Network testnet on links below:
