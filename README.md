@@ -19,3 +19,5 @@
 |**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|15|elystestnet-1|v0.2.3|
 |**[**Althea-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Althea)**|16|althea_7357-1|v0.3.2|
 |**[**Cascadia**](https://github.com/hexskrt/testnet_installation/tree/main/Cascadia)**|17|cascadia_6102-1|v0.1.2|
+|**[**Chain4Energy**](https://github.com/hexskrt/testnet_installation/tree/main/Chain4Energy)**|18|babajaga-1|v1.2.0|
+|**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable)**|19|banksy-testnet-2|v2.3.3-testnet2fork|
