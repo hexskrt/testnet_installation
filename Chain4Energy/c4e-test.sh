@@ -171,7 +171,6 @@ Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/
 WantedBy=multi-user.target
 EOF
 
-
 # Register And Start Service
 sudo systemctl daemon-reload
 sudo systemctl enable $BINARY
