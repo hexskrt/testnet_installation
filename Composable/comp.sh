@@ -76,7 +76,7 @@ sudo apt -qy upgrade
 
 # Install GO
 sudo rm -rf /usr/local/go
-curl -Ls https://go.dev/dl/go1.19.7.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+curl -Ls https://go.dev/dl/go1.20.4.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
 eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
 eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
@@ -105,7 +105,7 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and
-PEERS=""
+PEERS="$(curl -sS https://rpc-t.composable.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
 SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$COMP_FOLDER/config/config.toml
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$COMP_FOLDER/config/config.toml
