@@ -21,3 +21,4 @@
 |**[**Cascadia**](https://github.com/hexskrt/testnet_installation/tree/main/Cascadia)**|17|cascadia_6102-1|v0.1.2|
 |**[**Chain4Energy**](https://github.com/hexskrt/testnet_installation/tree/main/Chain4Energy)**|18|babajaga-1|v1.2.0|
 |**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable)**|19|banksy-testnet-2|v2.3.3-testnet2fork|
+|**[**Empower Chain**](https://github.com/hexskrt/testnet_installation/tree/main/Empower)**|20|circulus-1|v1.0.0-rc1|
