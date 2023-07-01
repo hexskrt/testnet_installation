@@ -56,9 +56,9 @@ sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/.althe
 
 ### Addrbook
 ```
-curl -Ls https://snap.hexnodes.co/althea/addrbook.json > $HOME/.althea/config/addrbook.json
+curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Althea/addrbook.json > $HOME/.althea/config/addrbook.json
 ```
 ### Genesis
 ```
-curl -Ls https://snap.hexnodes.co/althea/genesis.json > $HOME/.althea/config/genesis.json
+curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Althea/genesis.json > $HOME/.althea/config/genesis.json
 ```
