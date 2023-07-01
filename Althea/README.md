@@ -61,4 +61,8 @@ curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Alt
 ### Genesis
 ```
 curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Althea/genesis.json > $HOME/.althea/config/genesis.json
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 6f915f165b5efccda0007abe09e141424a86f7de
