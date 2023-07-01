@@ -24,9 +24,9 @@ VERSION=v0.3.2
 DENOM=ualthea
 COSMOVISOR=cosmovisor
 REPO=https://github.com/althea-net/althea-chain
-GENESIS=https://snap.hexnodes.co/althea/genesis.json
-ADDRBOOK=https://snap.hexnodes.co/althea/addrbook.json
-PORT=16
+GENESIS=https://snapshots.kjnodes.com/althea-testnet/genesis.json
+ADDRBOOK=https://snapshots.kjnodes.com/althea-testnet/addrbook.json
+PORT=01
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -76,7 +76,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.7"
+ver="1.20.5"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -108,10 +108,11 @@ sudo ln -s $HOME/$ALTHEA_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$
 $BINARY config keyring-backend test
 $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
+$BINARY config chain-id $CHAIN
 
 # Set peers and seeds
 PEERS="$(curl -sS https://rpc-test.althea.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="26e70e13195b0d04cda0fca1f7b16b8746a620ed@65.109.28.226:24056"
+SEEDS="3f472746f46493309650e5a033076689996c8881@althea-testnet.rpc.kjnodes.com:15259"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$ALTHEA_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$ALTHEA_FOLDER/config/config.toml
 
@@ -139,7 +140,7 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ALTHEA_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$ALTHEA_FOLDER --keep-addr-book
-curl -L https://snap.hexnodes.co/althea/althea-latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$ALTHEA_FOLDER
+curl -L https://snapshots.kjnodes.com/althea-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$ALTHEA_FOLDER
 [[ -f $HOME/$ALTHEA_FOLDER/data/upgrade-info.json ]] && cp $HOME/$ALTHEA_FOLDER/data/upgrade-info.json $HOME/$ALTHEA_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
