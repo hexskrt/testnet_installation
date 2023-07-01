@@ -23,9 +23,9 @@ VERSION=0.1.1-test
 DENOM=abcx
 BIN_REPO=https://github.com/defi-ventures/blockx-node-public-compiled/releases/download/v9.0.0/blockxd
 COSMOVISOR=cosmovisor
-GENESIS=https://snap.hexnodes.co/blockx/genesis.json
-ADDRBOOK=https://snap.hexnodes.co/blockx/addrbook.json
-PORT=11
+GENESIS=https://ss-t.blockx.nodestake.top/genesis.json
+ADDRBOOK=https://ss-t.blockx.nodestake.top/addrbook.json
+PORT=02
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -75,7 +75,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.7"
+ver="1.20.5"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -105,8 +105,8 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and seeds
-SEEDS="772042fa1777c77a6d0349c034396db420da836f@65.109.28.226:07656"
-PEERS="$(curl -sS https://rpc-test.blockx.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS=""
+PEERS="$(curl -sS https://rpc-t.blockx.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BLOCKX_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$BLOCKX_FOLDER/config/config.toml
 
@@ -134,7 +134,8 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 # Set Interval & Snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BLOCKX_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$BLOCKX_FOLDER --keep-addr-book
-curl -L https://snap.hexnodes.co/blockx/blockx.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$BLOCKX_FOLDER
+SNAP_NAME=$(curl -s https://ss-t.blockx.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
+curl -o - -L https://ss-t.blockx.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$BLOCKX_FOLDER
 [[ -f $HOME/$BLOCKX_FOLDER/data/upgrade-info.json ]] && cp $HOME/$BLOCKX_FOLDER/data/upgrade-info.json $HOME/$BLOCKX_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
@@ -167,7 +168,7 @@ echo -e "\033[0;35mCONGRATS! SETUP FINISHED\033[0m"
 echo ""
 echo -e "CHECK STATUS BINARY : \033[1m\033[35msystemctl status $BINARY\033[0m"
 echo -e "CHECK RUNNING LOGS : \033[1m\033[35mjournalctl -fu $BINARY -o cat\033[0m"
-echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}57/status | jq .result.sync_info\033[0m"
+echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}657/status | jq .result.sync_info\033[0m"
 echo -e "\033[0;35m=============================================================\033[0m"
 
 # End
