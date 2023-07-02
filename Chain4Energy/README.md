@@ -5,14 +5,10 @@
 # Chain4Energy Testnet | Chain ID : babajaga-1
 
 ### Explorer:
->-  https://explorer.hexskrt.net/c4e-testnet
+>-  https://explorer.hexnodes.co/CHAIN4ENERGY-TESTNET
 
 ### Automatic Installer
 You can setup your Chain4Energy fullnode in few minutes by using automated script below.
 ```
 wget -O c4e-test.sh https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Chain4Energy/c4e-test.sh && chmod +x c4e-test.sh && ./c4e-test.sh
 ```
-
-You can find more information about Chain4Energy testnet on links below:
-
->- **https://hexskrt.net/testnet/chain4energy**

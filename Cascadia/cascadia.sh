@@ -9,7 +9,7 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "    Cosmovisor Automatic Installer for Cascadia | Chain ID : cascadia_6102-1";
+echo "  Cosmovisor Automatic Installer for Cascadia | Chain ID : cascadia_6102-1";
 echo -e "\e[0m"
 
 sleep 1
@@ -24,9 +24,9 @@ VERSION=v0.1.2
 DENOM=aCC
 REPO=https://github.com/CascadiaFoundation/cascadia.git
 COSMOVISOR=cosmovisor
-GENESIS=https://snap.hexnodes.co/cascadia/genesis.json
-ADDRBOOK=https://snap.hexnodes.co/cascadia/addrbook.json
-PORT=17
+GENESIS=https://snapshots.kjnodes.com/cascadia-testnet/genesis.json
+ADDRBOOK=https://snapshots.kjnodes.com/cascadia-testnet/addrbook.json
+PORT=04
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -76,7 +76,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.7"
+ver="1.20.5"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -111,8 +111,8 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and
-PEERS=""
-SEEDS="c01481445ec6d3e6defa945ff1075e732efb3940@65.109.28.226:19656"
+PEERS="$(curl -sS https://cascadia-testnet.rpc.kjnodes.com/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="3f472746f46493309650e5a033076689996c8881@cascadia-testnet.rpc.kjnodes.com:15559"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$CASCADIA_FOLDER/config/config.toml
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$CASCADIA_FOLDER/config/config.toml
 
@@ -135,12 +135,12 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
 
 # Set minimum gas price
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DENOM\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
 
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$CASCADIA_FOLDER
-curl -L https://snap.hexnodes.co/cascadia/cascadia.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$CASCADIA_FOLDER
+curl -L https://snapshots.kjnodes.com/cascadia-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$CASCADIA_FOLDER
 [[ -f $HOME/$CASCADIA_FOLDER/data/upgrade-info.json ]] && cp $HOME/$CASCADIA_FOLDER/data/upgrade-info.json $HOME/$CASCADIA_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service

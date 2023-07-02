@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# // Copyright (C) 2023 Salman Wahib / NodeX Capital Recoded By Hexnodes
+# // Copyright (C) 2023 Salman Wahib X NodeX Capital Recoded By Hexnodes
 #
 
 echo -e "\033[0;32m"
@@ -9,24 +9,24 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "  Cosmovisor Automatic Installer for Chain4energy | Chain ID : babajaga-1";
+echo "Cosmovisor Automatic Installer for Composable | Chain ID : banksy-testnet-3";
 echo -e "\e[0m"
 
 sleep 1
 
 # Variable
-SOURCE=c4e-chain
+SOURCE=composable-testnet
 WALLET=wallet
-BINARY=c4ed
-CHAIN=babajaga-1
-C4E_FOLDER=.c4e-chain
-VERSION=v1.2.0
-DENOM=uc4e
+BINARY=centaurid
+CHAIN=banksy-testnet-3
+COMP_FOLDER=.banksy
+VERSION=v3.0.4-testnet
+DENOM=ppica
+REPO=https://github.com/notional-labs/composable-testnet.git
 COSMOVISOR=cosmovisor
-REPO=https://github.com/chain4energy/c4e-chain.git
-GENESIS=https://raw.githubusercontent.com/chain4energy/c4e-chains/main/babajaga-1/genesis.json
-ADDRBOOK=https://anode.team/C4E/test/addrbook.json
-PORT=05
+GENESIS=https://ss-t.banksy.nodestake.top/genesis.json
+ADDRBOOK=https://ss-t.banksy.nodestake.top/addrbook.json
+PORT=07
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -40,7 +40,7 @@ echo -e "NODE NAME      : \e[1m\e[35m$NODENAME\e[0m"
 echo -e "WALLET NAME    : \e[1m\e[35m$WALLET\e[0m"
 echo -e "CHAIN NAME     : \e[1m\e[35m$CHAIN\e[0m"
 echo -e "NODE VERSION   : \e[1m\e[35m$VERSION\e[0m"
-echo -e "NODE FOLDER    : \e[1m\e[35m$C4E_FOLDER\e[0m"
+echo -e "NODE FOLDER    : \e[1m\e[35m$COMP_FOLDER\e[0m"
 echo -e "NODE DENOM     : \e[1m\e[35m$DENOM\e[0m"
 echo -e "NODE ENGINE    : \e[1m\e[35m$COSMOVISOR\e[0m"
 echo -e "SOURCE CODE    : \e[1m\e[35m$REPO\e[0m"
@@ -55,7 +55,7 @@ echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
 echo "export BINARY=${BINARY}" >> $HOME/.bash_profile
 echo "export DENOM=${DENOM}" >> $HOME/.bash_profile
 echo "export CHAIN=${CHAIN}" >> $HOME/.bash_profile
-echo "export FOLDER=${C4E_FOLDER}" >> $HOME/.bash_profile
+echo "export COMP_FOLDER=${COMP_FOLDER}" >> $HOME/.bash_profile
 echo "export VERSION=${VERSION}" >> $HOME/.bash_profile
 echo "export COSMOVISOR=${COSMOVISOR}" >> $HOME/.bash_profile
 echo "export REPO=${REPO}" >> $HOME/.bash_profile
@@ -80,7 +80,7 @@ curl -Ls https://go.dev/dl/go1.20.5.linux-amd64.tar.gz | sudo tar -xzf - -C /usr
 eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
 eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
-# Get testnet version of Elys
+# Get testnet version of Composable
 cd $HOME
 rm -rf $SOURCE
 git clone $REPO
@@ -90,13 +90,13 @@ make build
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 
 # Prepare binaries for Cosmovisor
-mkdir -p $HOME/$C4E_FOLDER/$COSMOVISOR/genesis/bin
-mv build/$BINARY $HOME/$C4E_FOLDER/$COSMOVISOR/genesis/bin/
-rm -rf build
+mkdir -p $HOME/$COMP_FOLDER/$COSMOVISOR/genesis/bin
+mv bin/$BINARY $HOME/$COMP_FOLDER/$COSMOVISOR/genesis/bin/
+rm -rf bin
 
 # Create application symlinks
-ln -s $HOME/$C4E_FOLDER/$COSMOVISOR/genesis $HOME/$C4E_FOLDER/$COSMOVISOR/current
-sudo ln -s $HOME/$C4E_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$BINARY
+ln -s $HOME/$COMP_FOLDER/$COSMOVISOR/genesis $HOME/$COMP_FOLDER/$COSMOVISOR/current
+sudo ln -s $HOME/$COMP_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$BINARY
 
 # Init generation
 $BINARY config chain-id $CHAIN
@@ -104,50 +104,38 @@ $BINARY config keyring-backend test
 $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
+# Set peers and
+PEERS="$(curl -sS https://rpc-t.banksy.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
+sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$COMP_FOLDER/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$COMP_FOLDER/config/config.toml
+
 # Download genesis and addrbook
-curl -Ls $GENESIS > $HOME/$C4E_FOLDER/config/genesis.json
-curl -Ls $ADDRBOOK > $HOME/$C4E_FOLDER/config/addrbook.json
-
-# Add seeds,gas-prices & peers
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$C4E_FOLDER/config/app.toml
-
-#Set Peers & Seeds
-PEERS="$(curl -sS https://rpc-testnet.c4e.io/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS=""
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$C4E_FOLDER/config/config.toml
-sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $HOME/$C4E_FOLDER/config/config.toml
+curl -Ls $GENESIS > $HOME/$COMP_FOLDER/config/genesis.json
+curl -Ls $ADDRBOOK > $HOME/$COMP_FOLDER/config/addrbook.json
 
 # Set Port
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${PORT}660\"%" $HOME/$C4E_FOLDER/config/config.toml
-sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${PORT}317\"%; s%^address = \":8080\"%address = \":${PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${PORT}091\"%" $HOME/$C4E_FOLDER/config/app.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${PORT}660\"%" $HOME/$COMP_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${PORT}317\"%; s%^address = \":8080\"%address = \":${PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${PORT}091\"%" $HOME/$COMP_FOLDER/config/app.toml
 
 # Set Config Pruning
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
 pruning_interval="19"
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$C4E_FOLDER/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$C4E_FOLDER/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$C4E_FOLDER/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$C4E_FOLDER/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$COMP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$COMP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$COMP_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$COMP_FOLDER/config/app.toml
+
+# Set minimum gas price
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$COMP_FOLDER/config/app.toml
 
 # Enable snapshots
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$C4E_FOLDER/config/app.toml
-$BINARY tendermint unsafe-reset-all --home $HOME/$C4E_FOLDER --keep-addr-book
-
-#State Sync
-SNAP_RPC1="https://rpc-testnet.c4e.io:443"
-SNAP_RPC2="https://rpc-testnet.c4e.io:443"
-
-LATEST_HEIGHT=$(curl -s https://rpc-testnet.c4e.io:443/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 1000)); \
-TRUST_HASH=$(curl -s "https://rpc-testnet.c4e.io:443/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC1,$SNAP_RPC2\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.c4e-chain/config/config.toml
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$COMP_FOLDER/config/app.toml
+$BINARY tendermint unsafe-reset-all --home $HOME/$COMP_FOLDER
+curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$COMP_FOLDER
+[[ -f $HOME/$COMP_FOLDER/data/upgrade-info.json ]] && cp $HOME/$COMP_FOLDER/data/upgrade-info.json $HOME/$COMP_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
 sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
@@ -158,14 +146,13 @@ After=network-online.target
 [Service]
 User=$USER
 ExecStart=$(which cosmovisor) run start
+WorkingDirectory=$HOME
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/$C4E_FOLDER"
+Environment="DAEMON_HOME=$HOME/$COMP_FOLDER"
 Environment="DAEMON_NAME=$BINARY"
-Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
-Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/$C4E_FOLDER/cosmovisor/current/bin"
 
 [Install]
 WantedBy=multi-user.target

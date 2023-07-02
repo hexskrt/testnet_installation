@@ -5,7 +5,7 @@
 # Althea Network Testnet | Chain ID : althea_7357-1
 
 ### Explorer:
->-  https://explorer.hexnodes.co/althea-testnet
+>-  https://explorer.hexnodes.co/ALTHEA-TESTNET
 
 ### Automatic Installer
 You can setup your Althea Network fullnode in few minutes by using automated script below.
@@ -61,8 +61,4 @@ curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Alt
 ### Genesis
 ```
 curl -Ls https://raw.githubusercontent.com/hexskrt/testnet_installation/main/Althea/genesis.json > $HOME/.althea/config/genesis.json
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 6f915f165b5efccda0007abe09e141424a86f7de

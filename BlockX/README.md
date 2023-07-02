@@ -5,7 +5,7 @@
 # BlockX Network Testnet | Chain ID : blockx_12345-2
 
 ### Explorer:
->-  https://explorer.hexnodes.co/blockx-testnet
+>-  https://explorer.hexnodes.co/BLOCKX-TESTNET
 
 ### Automatic Installer
 You can setup your BlockX Network fullnode in few minutes by using automated script below.

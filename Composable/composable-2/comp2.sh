@@ -9,7 +9,7 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "Cosmovisor Automatic Installer for Composable | Chain ID : banksy-testnet-3";
+echo "Cosmovisor Automatic Installer for Composable | Chain ID : banksy-testnet-2";
 echo -e "\e[0m"
 
 sleep 1
@@ -21,12 +21,12 @@ BINARY=banksyd
 CHAIN=banksy-testnet-3
 COMP_FOLDER=.banksy
 VERSION=v2.3.5
-DENOM=ppica
+DENOM=upica
 REPO=https://github.com/notional-labs/composable-testnet.git
 COSMOVISOR=cosmovisor
-GENESIS=https://snap.hexnodes.co/composable/genesis.json
-ADDRBOOK=https://snap.hexnodes.co/composable/addrbook.json
-PORT=19
+GENESIS=https://ss-t.composable.nodestake.top/genesis.json
+ADDRBOOK=https://ss-t.composable.nodestake.top/addrbook.json
+PORT=06
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -76,7 +76,7 @@ sudo apt -qy upgrade
 
 # Install GO
 sudo rm -rf /usr/local/go
-curl -Ls https://go.dev/dl/go1.20.4.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+curl -Ls https://go.dev/dl/go1.20.5.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
 eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
 eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
@@ -105,8 +105,8 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and
-PEERS="$(curl -sS https://rpc-t.composable.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
+PEERS="$(curl -sS https://rpc-t.composable.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS=""
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$COMP_FOLDER/config/config.toml
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$COMP_FOLDER/config/config.toml
 
@@ -134,7 +134,8 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DENOM\"/" $HO
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$COMP_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$COMP_FOLDER
-curl -L https://snap.hexnodes.co/composable/comp.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$COMP_FOLDER
+SNAP_NAME=$(curl -s https://ss-t.composable.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
+curl -o - -L https://ss-t.composable.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$COMP_FOLDER
 [[ -f $HOME/$COMP_FOLDER/data/upgrade-info.json ]] && cp $HOME/$COMP_FOLDER/data/upgrade-info.json $HOME/$COMP_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
@@ -168,7 +169,7 @@ echo -e "\033[0;35mCONGRATS! SETUP FINISHED\033[0m"
 echo ""
 echo -e "CHECK STATUS BINARY : \033[1m\033[35msystemctl status $BINARY\033[0m"
 echo -e "CHECK RUNNING LOGS : \033[1m\033[35mjournalctl -fu $BINARY -o cat\033[0m"
-echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:18657/status | jq .result.sync_info\033[0m"
+echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}657/status | jq .result.sync_info\033[0m"
 echo -e "\033[0;35m=============================================================\033[0m"
 
 # End

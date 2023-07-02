@@ -24,9 +24,9 @@ VERSION=7c7522c2879ddeaa4ca72d7c1367d18a96d41741
 DENOM=ubonus
 COSMOVISOR=cosmovisor
 REPO=https://github.com/BBlockLabs/BonusBlock-chain
-GENESIS=https://snap.hexnodes.co/bonus-block/genesis.json
-ADDRBOOK=https://snap.hexnodes.co/bonus-block/addrbook.json
-PORT=13
+GENESIS=https://ss-t.bonusblock.nodestake.top/genesis.json
+ADDRBOOK=https://ss-t.bonusblock.nodestake.top/addrbook.json
+PORT=03
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -76,7 +76,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.19.7"
+ver="1.20.5"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
@@ -109,8 +109,8 @@ sudo ln -s $HOME/$BONUS_FOLDER/$COSMOVISOR/genesis $HOME/$BONUS_FOLDER/$COSMOVIS
 sudo ln -s $HOME/$BONUS_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$BINARY
 
 # Set peers and seeds
-SEEDS="e5e04918240cfe63e20059a8abcbe62f7eb05036@bonusblock-testnet-p2p.alter.network:26656"
-PEERS="$(curl -sS https://rpc-test.bonus.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS=""
+PEERS="$(curl -sS https://rpc-t.bonusblock.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BONUS_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$BONUS_FOLDER/config/config.toml
 
@@ -138,7 +138,8 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001$DENOM\"/" $H
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$BONUS_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$BONUS_FOLDER --keep-addr-book
-curl -L https://snap.hexnodes.co/bonus-block/bonus-block.latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$BONUS_FOLDER
+SNAP_NAME=$(curl -s https://ss-t.bonusblock.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
+curl -o - -L https://ss-t.bonusblock.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/.bonusblock
 [[ -f $HOME/$BONUS_FOLDER/data/upgrade-info.json ]] && cp $HOME/$BONUS_FOLDER/data/upgrade-info.json $HOME/$BONUS_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
@@ -156,7 +157,6 @@ LimitNOFILE=65535
 Environment="DAEMON_HOME=$HOME/$BONUS_FOLDER"
 Environment="DAEMON_NAME=$BINARY"
 Environment="UNSAFE_SKIP_BACKUP=true"
-Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/$BONUS_FOLDER/cosmovisor/current/bin"
 
 [Install]
 WantedBy=multi-user.target
