@@ -9,7 +9,7 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "    Cosmovisor Automatic Installer for Elys | Chain ID : elystestnet-1";
+echo "      Cosmovisor Automatic Installer for Noria | Chain ID : oasis-3";
 echo -e "\e[0m"
 
 sleep 1
@@ -17,16 +17,16 @@ sleep 1
 # Variable
 SOURCE=elys
 WALLET=wallet
-BINARY=elysd
-CHAIN=elystestnet-1
-ELYS_FOLDER=.elys
-VERSION=v0.6.0
-DENOM=uelys
+BINARY=noriad
+CHAIN=oasis-3
+NOR_FOLDER=.noria
+VERSION=v1.3.0
+DENOM=ucrd
 COSMOVISOR=cosmovisor
-REPO=https://github.com/elys-network/elys
-GENESIS=https://ss-t.elys.nodestake.top/genesis.json
-ADDRBOOK=https://ss-t.elys.nodestake.top/addrbook.json
-PORT=09
+REPO=https://github.com/noria-net/noria.git
+GENESIS=https://snapshots.kjnodes.com/noria-testnet/genesis.json
+ADDRBOOK=https://snapshots.kjnodes.com/noria-testnet/addrbook.json
+PORT=10
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -40,7 +40,7 @@ echo -e "NODE NAME      : \e[1m\e[35m$NODENAME\e[0m"
 echo -e "WALLET NAME    : \e[1m\e[35m$WALLET\e[0m"
 echo -e "CHAIN NAME     : \e[1m\e[35m$CHAIN\e[0m"
 echo -e "NODE VERSION   : \e[1m\e[35m$VERSION\e[0m"
-echo -e "NODE FOLDER    : \e[1m\e[35m$ELYS_FOLDER\e[0m"
+echo -e "NODE FOLDER    : \e[1m\e[35m$NOR_FOLDER\e[0m"
 echo -e "NODE DENOM     : \e[1m\e[35m$DENOM\e[0m"
 echo -e "NODE ENGINE    : \e[1m\e[35m$COSMOVISOR\e[0m"
 echo -e "SOURCE CODE    : \e[1m\e[35m$REPO\e[0m"
@@ -55,7 +55,7 @@ echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
 echo "export BINARY=${BINARY}" >> $HOME/.bash_profile
 echo "export DENOM=${DENOM}" >> $HOME/.bash_profile
 echo "export CHAIN=${CHAIN}" >> $HOME/.bash_profile
-echo "export FOLDER=${ELYS_FOLDER}" >> $HOME/.bash_profile
+echo "export FOLDER=${NOR_FOLDER}" >> $HOME/.bash_profile
 echo "export VERSION=${VERSION}" >> $HOME/.bash_profile
 echo "export COSMOVISOR=${COSMOVISOR}" >> $HOME/.bash_profile
 echo "export REPO=${REPO}" >> $HOME/.bash_profile
@@ -96,13 +96,13 @@ make build
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 
 # Prepare binaries for Cosmovisor
-mkdir -p $HOME/$ELYS_FOLDER/$COSMOVISOR/genesis/bin
-mv bin/$BINARY $HOME/$ELYS_FOLDER/$COSMOVISOR/genesis/bin/
-rm -rf bin
+mkdir -p $HOME/$NOR_FOLDER/$COSMOVISOR/genesis/bin
+mv build/$BINARY $HOME/$NOR_FOLDER/$COSMOVISOR/genesis/bin/
+rm -rf bibuildn
 
 # Create application symlinks
-ln -s $HOME/$ELYS_FOLDER/$COSMOVISOR/genesis $HOME/$ELYS_FOLDER/$COSMOVISOR/current
-sudo ln -s $HOME/$ELYS_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$BINARY
+ln -s $HOME/$NOR_FOLDER/$COSMOVISOR/genesis $HOME/$NOR_FOLDER/$COSMOVISOR/current
+sudo ln -s $HOME/$NOR_FOLDER/$COSMOVISOR/current/bin/$BINARY /usr/local/bin/$BINARY
 
 # Init generation
 $BINARY config chain-id $CHAIN
@@ -111,38 +111,37 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Download genesis and addrbook
-curl -Ls $GENESIS > $HOME/$ELYS_FOLDER/config/genesis.json
-curl -Ls $ADDRBOOK > $HOME/$ELYS_FOLDER/config/addrbook.json
+curl -Ls $GENESIS > $HOME/$NOR_FOLDER/config/genesis.json
+curl -Ls $ADDRBOOK > $HOME/$NOR_FOLDER/config/addrbook.json
 
 # Add seeds,gas-prices & peers
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$ELYS_FOLDER/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$NOR_FOLDER/config/app.toml
 
 #Set Peers & Seeds
-PEERS="$(curl -sS https://elys-testnet.rpc.kjnodes.com/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="3f472746f46493309650e5a033076689996c8881@elys-testnet.rpc.kjnodes.com:53659,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:22056"
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$ELYS_FOLDER/config/config.toml
-sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $HOME/$ELYS_FOLDER/config/config.toml
+PEERS="$(curl -sS https://noria-testnet.rpc.kjnodes.com/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="3f472746f46493309650e5a033076689996c8881@noria-testnet.rpc.kjnodes.com:16159,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:22056"
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$NOR_FOLDER/config/config.toml
+sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $HOME/$NOR_FOLDER/config/config.toml
 
 # Set Port
-# Set Port
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${PORT}660\"%" $HOME/$ELYS_FOLDER/config/config.toml
-sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${PORT}317\"%; s%^address = \":8080\"%address = \":${PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${PORT}091\"%" $HOME/$ELYS_FOLDER/config/app.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:${PORT}658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:${PORT}657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:${PORT}060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:${PORT}656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":${PORT}660\"%" $HOME/$NOR_FOLDER/config/config.toml
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:${PORT}317\"%; s%^address = \":8080\"%address = \":${PORT}080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:${PORT}090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:${PORT}091\"%" $HOME/$NOR_FOLDER/config/app.toml
 
 # Set Config Pruning
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
 pruning_interval="19"
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$ELYS_FOLDER/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$ELYS_FOLDER/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$ELYS_FOLDER/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$ELYS_FOLDER/config/app.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/$NOR_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/$NOR_FOLDER/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/$NOR_FOLDER/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$NOR_FOLDER/config/app.toml
 
 # Enable snapshots
-sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ELYS_FOLDER/config/app.toml
-$BINARY tendermint unsafe-reset-all --home $HOME/$ELYS_FOLDER --keep-addr-book
-curl -L https://snapshots.kjnodes.com/elys-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$ELYS_FOLDER
-[[ -f $HOME/$ELYS_FOLDER/data/upgrade-info.json ]] && cp $HOME/$ELYS_FOLDER/data/upgrade-info.json $HOME/$ELYS_FOLDER/cosmovisor/genesis/upgrade-info.json
+sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$NOR_FOLDER/config/app.toml
+$BINARY tendermint unsafe-reset-all --home $HOME/$NOR_FOLDER --keep-addr-book
+curl -L https://snapshots.kjnodes.com/noria-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$NOR_FOLDER
+[[ -f $HOME/$NOR_FOLDER/data/upgrade-info.json ]] && cp $HOME/$NOR_FOLDER/data/upgrade-info.json $HOME/$NOR_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
 sudo tee /etc/systemd/system/$BINARY.service > /dev/null << EOF
@@ -156,11 +155,11 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
-Environment="DAEMON_HOME=$HOME/$ELYS_FOLDER"
+Environment="DAEMON_HOME=$HOME/$NOR_FOLDER"
 Environment="DAEMON_NAME=$BINARY"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
-Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/$ELYS_FOLDER/cosmovisor/current/bin"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/$NOR_FOLDER/cosmovisor/current/bin"
 
 [Install]
 WantedBy=multi-user.target
@@ -177,7 +176,7 @@ echo -e "\033[0;35mCONGRATS! SETUP FINISHED\033[0m"
 echo ""
 echo -e "CHECK STATUS BINARY : \033[1m\033[35msystemctl status $BINARY\033[0m"
 echo -e "CHECK RUNNING LOGS : \033[1m\033[35mjournalctl -fu $BINARY -o cat\033[0m"
-echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}57/status | jq .result.sync_info\033[0m"
+echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}657/status | jq .result.sync_info\033[0m"
 echo -e "\033[0;35m=============================================================\033[0m"
 
 # End
