@@ -36,14 +36,14 @@ fi
 
 echo "Please make sure the installation information below is correct!"
 echo ""
-echo -e "NODE NAME      : \e[1m\e[35m$NODENAME\e[0m"
-echo -e "WALLET NAME    : \e[1m\e[35m$WALLET\e[0m"
-echo -e "CHAIN NAME     : \e[1m\e[35m$CHAIN\e[0m""
-echo -e "NODE FOLDER    : \e[1m\e[35m$ALTHEA_FOLDER\e[0m"
-echo -e "NODE DENOM     : \e[1m\e[35m$DENOM\e[0m"
-echo -e "NODE ENGINE    : \e[1m\e[35m$COSMOVISOR\e[0m"
-echo -e "SOURCE CODE    : \e[1m\e[35m$REPO\e[0m"
-echo -e "NODE PORT      : \e[1m\e[35m$PORT\e[0m"
+echo -e "NODE NAME      : \e[1m\e[32m$NODENAME\e[0m"
+echo -e "WALLET NAME    : \e[1m\e[32m$WALLET\e[0m"
+echo -e "CHAIN NAME     : \e[1m\e[32m$CHAIN\e[0m""
+echo -e "NODE FOLDER    : \e[1m\e[32m$ALTHEA_FOLDER\e[0m"
+echo -e "NODE DENOM     : \e[1m\e[32m$DENOM\e[0m"
+echo -e "NODE ENGINE    : \e[1m\e[32m$COSMOVISOR\e[0m"
+echo -e "SOURCE CODE    : \e[1m\e[32m$REPO\e[0m"
+echo -e "NODE PORT      : \e[1m\e[32m$PORT\e[0m"
 echo ""
 
 read -p "Are you sure? (y/n) " choice
@@ -163,12 +163,12 @@ sudo systemctl enable $BINARY
 sudo systemctl start $BINARY
 
 
-echo -e "\033[0;35m=============================================================\033[0m"
-echo -e "\033[0;35mCONGRATS! SETUP FINISHED\033[0m"
+echo -e "\033[0;32m=============================================================\033[0m"
+echo -e "\033[0;32mCONGRATS! SETUP FINISHED\033[0m"
 echo ""
-echo -e "CHECK STATUS BINARY : \033[1m\033[35msystemctl status $BINARY\033[0m"
-echo -e "CHECK RUNNING LOGS : \033[1m\033[35mjournalctl -fu $BINARY -o cat\033[0m"
-echo -e "CHECK LOCAL STATUS : \033[1m\033[35mcurl -s localhost:${PORT}657/status | jq .result.sync_info\033[0m"
-echo -e "\033[0;35m=============================================================\033[0m"
+echo -e "CHECK STATUS BINARY : \033[1m\033[32msystemctl status $BINARY\033[0m"
+echo -e "CHECK RUNNING LOGS : \033[1m\033[32mjournalctl -fu $BINARY -o cat\033[0m"
+echo -e "CHECK LOCAL STATUS : \033[1m\033[32mcurl -s localhost:${PORT}657/status | jq .result.sync_info\033[0m"
+echo -e "\033[0;32m=============================================================\033[0m"
 
 # End
