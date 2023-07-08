@@ -9,23 +9,23 @@ echo "         ██   ██ ██       ██ ██  ████   ██
 echo "        ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "       ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "      ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "     Cosmovisor Automatic Installer for Althea | Chain ID : althea_7357-1";
+echo "     Cosmovisor Automatic Installer for Althea | Chain ID : althea_417834-3";
 echo -e "\e[0m"
 
 sleep 1
 
 # Variable
-SOURCE=althea-chain
 WALLET=wallet
 BINARY=althea
-CHAIN=althea_7357-1
+CHAIN=althea_417834-3
 ALTHEA_FOLDER=.althea
-VERSION=v0.3.2
-DENOM=ualthea
+#VERSION=v0.5.5
+DENOM=aalthea
 COSMOVISOR=cosmovisor
-REPO=https://github.com/althea-net/althea-chain
-GENESIS=https://snapshots.kjnodes.com/althea-testnet/genesis.json
-ADDRBOOK=https://snapshots.kjnodes.com/althea-testnet/addrbook.json
+REPO=https://github.com/althea-net/althea-L1/releases/download/v0.5.5/althea-linux-amd64
+BINARY_REPO=althea-linux-amd64
+GENESIS=https://raw.githubusercontent.com/althea-net/althea-L1-docs/main/testnet-4-genesis-collected.json
+#ADDRBOOK=
 PORT=01
 
 # Set Vars
@@ -38,8 +38,7 @@ echo "Please make sure the installation information below is correct!"
 echo ""
 echo -e "NODE NAME      : \e[1m\e[35m$NODENAME\e[0m"
 echo -e "WALLET NAME    : \e[1m\e[35m$WALLET\e[0m"
-echo -e "CHAIN NAME     : \e[1m\e[35m$CHAIN\e[0m"
-echo -e "NODE VERSION   : \e[1m\e[35m$VERSION\e[0m"
+echo -e "CHAIN NAME     : \e[1m\e[35m$CHAIN\e[0m""
 echo -e "NODE FOLDER    : \e[1m\e[35m$ALTHEA_FOLDER\e[0m"
 echo -e "NODE DENOM     : \e[1m\e[35m$DENOM\e[0m"
 echo -e "NODE ENGINE    : \e[1m\e[35m$COSMOVISOR\e[0m"
@@ -50,17 +49,15 @@ echo ""
 read -p "Are you sure? (y/n) " choice
 if [[ $choice == [Yy]* ]]; then
 
-echo "export SOURCE=${SOURCE}" >> $HOME/.bash_profile
 echo "export WALLET=${WALLET}" >> $HOME/.bash_profile
 echo "export BINARY=${BINARY}" >> $HOME/.bash_profile
 echo "export DENOM=${DENOM}" >> $HOME/.bash_profile
 echo "export CHAIN=${CHAIN}" >> $HOME/.bash_profile
 echo "export ALTHEA_FOLDER=${ALTHEA_FOLDER}" >> $HOME/.bash_profile
-echo "export VERSION=${VERSION}" >> $HOME/.bash_profile
 echo "export COSMOVISOR=${COSMOVISOR}" >> $HOME/.bash_profile
 echo "export REPO=${REPO}" >> $HOME/.bash_profile
+echo "export BINARY_REPO=${BINARY_REPO}" >> $HOME/.bash_profile
 echo "export GENESIS=${GENESIS}" >> $HOME/.bash_profile
-echo "export ADDRBOOK=${ADDRBOOK}" >> $HOME/.bash_profile
 echo "export PORT=${PORT}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
@@ -88,17 +85,12 @@ go version
 
 # Get testnet version of Althea
 cd $HOME
-rm -rf $SOURCE
-git clone $REPO
-cd $SOURCE
-git checkout $VERSION
-make build
-go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+wget $REPO 
+chmod +x $BINARY_REPO
 
 # Prepare binaries for Cosmovisor
-mkdir -p $HOME/$ALTHEA_FOLDER/$COSMOVISOR/genesis/bin
-mv build/$BINARY $HOME/$ALTHEA_FOLDER/$COSMOVISOR/genesis/bin/
-rm -rf build
+mkdir -p $HOME/$FOLDER/$COSMOVISOR/genesis/bin
+mv $BINARY_REPO $HOME/$FOLDER/$COSMOVISOR/genesis/bin/$BINARY
 
 # Create application symlinks
 ln -s $HOME/$ALTHEA_FOLDER/$COSMOVISOR/genesis $HOME/$ALTHEA_FOLDER/$COSMOVISOR/current
@@ -111,8 +103,8 @@ $BINARY init $NODENAME --chain-id $CHAIN
 $BINARY config chain-id $CHAIN
 
 # Set peers and seeds
-PEERS="$(curl -sS https://rpc-test.althea.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="3f472746f46493309650e5a033076689996c8881@althea-testnet.rpc.kjnodes.com:15259"
+PEERS="$(curl -sS https://rpc-t.althea.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS=""
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$ALTHEA_FOLDER/config/config.toml
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$ALTHEA_FOLDER/config/config.toml
 
@@ -140,7 +132,8 @@ sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$ALTHEA_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$ALTHEA_FOLDER --keep-addr-book
-curl -L https://snapshots.kjnodes.com/althea-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$ALTHEA_FOLDER
+SNAP_NAME=$(curl -s https://ss-t.althea.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
+curl -o - -L https://ss-t.althea.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$ALTHEA_FOLDER
 [[ -f $HOME/$ALTHEA_FOLDER/data/upgrade-info.json ]] && cp $HOME/$ALTHEA_FOLDER/data/upgrade-info.json $HOME/$ALTHEA_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
