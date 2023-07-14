@@ -5,8 +5,8 @@
 # Composable Testnet | Chain ID : banksy-testnet-2 & banksy-testnet-3
 
 ### Explorer:
->-  https://explorer.hexnodes.co/COMPOSABLE-2 (banksy-testnet-2)
->-  https://explorer.hexnodes.co/COMPOSABLE-3 (banksy-testnet-3)
+>-  https://explorer.hexnodes.co/COMPOSABLE-2 (banksy-testnet-2)  *** Inactive ***
+>-  https://explorer.hexnodes.co/composable-3 (banksy-testnet-3)
 
 ### Automatic Installer
 You can setup your Composable fullnode in few minutes by using automated script below.

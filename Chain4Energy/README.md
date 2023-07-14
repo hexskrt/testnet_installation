@@ -5,7 +5,7 @@
 # Chain4Energy Testnet | Chain ID : babajaga-1
 
 ### Explorer:
->-  https://explorer.hexnodes.co/CHAIN4ENERGY-TESTNET
+>-  https://explorer.hexnodes.co/chain4energy-testnet
 
 ### Automatic Installer
 You can setup your Chain4Energy fullnode in few minutes by using automated script below.

@@ -5,7 +5,7 @@
 # Bonus Blockchain Testnet | Chain ID : blocktopia-01
 
 ### Explorer:
->-  https://explorer.hexnodes.co/BONUS-TESTNET
+>-  https://explorer.hexnodes.co/bonus-testnet
 
 ### Automatic Installer
 You can setup your Bonus Blockchain fullnode in few minutes by using automated script below.

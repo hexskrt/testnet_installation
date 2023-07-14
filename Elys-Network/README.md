@@ -5,7 +5,7 @@
 # Elys Testnet | Chain ID : elystestnet-1
 
 ### Explorer:
->-  https://explorer.hexnodes.co/ELYS-TESTNET
+>-  https://explorer.hexnodes.co/elys-testnet
 
 ### Automatic Installer
 You can setup your Elys Network fullnode in few minutes by using automated script below.

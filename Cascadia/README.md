@@ -7,7 +7,7 @@
 >- [Validator Setup Instructions](https://cascadia.gitbook.io/gitbook/validators)
 
 ### Explorer:
->-  https://explorer.hexnodes.co/CASCADIA-TESTNET
+>-  https://explorer.hexnodes.co/cascadia-testnet
 
 ### Automatic Installer
 You can setup your Cascadia fullnode in few minutes by using automated script below.

@@ -4,8 +4,8 @@
 
 # Althea Network Testnet | Chain ID : althea_417834-3
 
-### Explorer:
->-  https://explorer.hexnodes.co/ALTHEA-TESTNET
+### Custom Explorer:
+>-  https://explorer.hexnodes.co/althea-testnet
 
 ### Automatic Installer
 You can setup your Althea Network fullnode in few minutes by using automated script below.

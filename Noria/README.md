@@ -5,7 +5,7 @@
 # Noria Testnet | Chain ID : oasis-3
 
 ### Explorer:
->-  https://explorer.hexnodes.co/NORIA-TESTNET
+>-  https://explorer.hexnodes.co/noria-testnet
 
 ### Automatic Installer
 You can setup your Noria Network fullnode in few minutes by using automated script below.

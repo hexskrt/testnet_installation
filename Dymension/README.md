@@ -8,7 +8,7 @@
 >- [Validator Setup Instructions](https://docs.dymension.xyz/validate/dymension-hub/build-dymd)
 
 ### Explorer:
->-  https://explorer.hexnodes.co/DYMENSION-TESTNET
+>-  https://explorer.hexnodes.co/dymension-testnet
 
 ### Automatic Installer
 You can setup your Dymension fullnode in few minutes by using automated script below.
