@@ -26,7 +26,7 @@ REPO=https://github.com/notional-labs/composable-testnet.git
 COSMOVISOR=cosmovisor
 GENESIS=https://ss-t.banksy.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.banksy.nodestake.top/addrbook.json
-PORT=07
+PORT=06
 
 # Set Vars
 if [ ! $NODENAME ]; then
