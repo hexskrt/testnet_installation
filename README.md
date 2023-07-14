@@ -10,4 +10,4 @@
 |**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable)**|06|banksy-testnet-3|v3.0.4-testnet|
 |**[**Dymension**](https://github.com/hexskrt/testnet_installation/tree/main/Dymension)**|07|35-C|v0.2.0-beta|
 |**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|08|elystestnet-1|v0.8.5|
-|**[**Noria**](https://github.com/hexskrt/testnet_installation/tree/main/Noria)**|08|oasis-3|v1.3.0|
+|**[**Noria**](https://github.com/hexskrt/testnet_installation/tree/main/Noria)**|09|oasis-3|v1.3.0|
