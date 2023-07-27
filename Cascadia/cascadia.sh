@@ -111,8 +111,8 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and
-PEERS="$(curl -sS https://cascadia-testnet.rpc.kjnodes.com/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="3f472746f46493309650e5a033076689996c8881@cascadia-testnet.rpc.kjnodes.com:15559"
+PEERS="$(curl -sS https://rpc-t.cascadia.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="42c4a78f39935df1c20b51c4b0d0a21db8f01c88@cascadia-testnet-seed.itrocket.net:40656"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$CASCADIA_FOLDER/config/config.toml
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$CASCADIA_FOLDER/config/config.toml
 
@@ -137,10 +137,10 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 # Set minimum gas price
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
 
-# Enable snapshots
+# Enable Snapshot
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$CASCADIA_FOLDER/config/app.toml
-$BINARY tendermint unsafe-reset-all --home $HOME/$CASCADIA_FOLDER
-curl -L https://snapshots.kjnodes.com/cascadia-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$CASCADIA_FOLDER
+$BINARY tendermint unsafe-reset-all --home $HOME/$CASCADIA_FOLDER --keep-addr-book
+curl https://testnet-files.itrocket.net/cascadia/snap_cascadia.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/$CASCADIA_FOLDER
 [[ -f $HOME/$CASCADIA_FOLDER/data/upgrade-info.json ]] && cp $HOME/$CASCADIA_FOLDER/data/upgrade-info.json $HOME/$CASCADIA_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
