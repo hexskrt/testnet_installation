@@ -80,7 +80,7 @@ curl -Ls https://go.dev/dl/go1.20.5.linux-amd64.tar.gz | sudo tar -xzf - -C /usr
 eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
 eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
-# Get testnet version of Elys
+# Get testnet version of Chain4Energy Testnet
 cd $HOME
 rm -rf $SOURCE
 git clone $REPO
