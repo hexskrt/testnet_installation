@@ -17,11 +17,11 @@ sleep 1
 # Variable
 WALLET=wallet
 BINARY=blockxd
-CHAIN=blockx_12345-2
+CHAIN=blockx_50-1
 BLOCK_FOLDER=.blockxd
-VERSION=0.1.1-test
+#VERSION=0.1.1-test
 DENOM=abcx
-BIN_REPO=https://github.com/defi-ventures/blockx-node-public-compiled/releases/download/v9.0.0/blockxd
+BIN_REPO=https://github.com/defi-ventures/blockx-node-public-compiled/releases/download/v10.0.0/blockxd
 COSMOVISOR=cosmovisor
 GENESIS=https://ss-t.blockx.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.blockx.nodestake.top/addrbook.json
@@ -55,7 +55,7 @@ echo "export BINARY=${BINARY}" >> $HOME/.bash_profile
 echo "export DENOM=${DENOM}" >> $HOME/.bash_profile
 echo "export CHAIN=${CHAIN}" >> $HOME/.bash_profile
 echo "export BLOCKX_FOLDER=${BLOCKX_FOLDER}" >> $HOME/.bash_profile
-echo "export VERSION=${VERSION}" >> $HOME/.bash_profile
+#echo "export VERSION=${VERSION}" >> $HOME/.bash_profile
 echo "export COSMOVISOR=${COSMOVISOR}" >> $HOME/.bash_profile
 echo "export REPO=${REPO}" >> $HOME/.bash_profile
 echo "export GENESIS=${GENESIS}" >> $HOME/.bash_profile
