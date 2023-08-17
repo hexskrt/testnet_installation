@@ -26,7 +26,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/noria-net/noria.git
 GENESIS=https://snapshots.kjnodes.com/noria-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/noria-testnet/addrbook.json
-PORT=09
+PORT=10
 
 # Set Vars
 if [ ! $NODENAME ]; then

@@ -26,7 +26,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/BBlockLabs/BonusBlock-chain
 GENESIS=https://ss-t.bonusblock.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.bonusblock.nodestake.top/addrbook.json
-PORT=03
+PORT=04
 
 # Set Vars
 if [ ! $NODENAME ]; then

@@ -9,7 +9,7 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "       Cosmovisor Automatic Installer for Dymension Chain ID : 35-C";
+echo "  Cosmovisor Automatic Installer for Dymension Chain ID : froopyland_100-1";
 echo -e "\e[0m"
 sleep 1
 
@@ -17,15 +17,15 @@ sleep 1
 SOURCE=dymension
 WALLET=wallet
 BINARY=dymd
-CHAIN=35-C
+CHAIN=froopyland_100-1
 DYM_FOLDER=.dymension
-VERSION=v0.2.0-beta
+VERSION=v1.0.2-beta
 DENOM=udym
 REPO=https://github.com/dymensionxyz/dymension.git
 COSMOVISOR=cosmovisor
 GENESIS=https://snapshots.kjnodes.com/dymension-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/dymension-testnet/addrbook.json
-PORT=07
+PORT=08
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -96,8 +96,8 @@ go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 
 # Prepare binaries for Cosmovisor
 sudo mkdir -p $HOME/$DYM_FOLDER/$COSMOVISOR/genesis/bin
-sudo mv bin/$BINARY $HOME/$DYM_FOLDER/$COSMOVISOR/genesis/bin/$BINARY
-sudo rm -rf bin
+sudo mv build/$BINARY $HOME/$DYM_FOLDER/$COSMOVISOR/genesis/bin/$BINARY
+sudo rm -rf build
 
 # Create application symlinks
 ln -s $HOME/$DYM_FOLDER/$COSMOVISOR/genesis $HOME/$DYM_FOLDER/$COSMOVISOR/current

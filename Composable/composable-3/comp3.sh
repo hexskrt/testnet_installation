@@ -20,13 +20,13 @@ WALLET=wallet
 BINARY=centaurid
 CHAIN=banksy-testnet-3
 COMP_FOLDER=.banksy
-VERSION=v4.5.0
+VERSION=v5.0.0
 DENOM=ppica
 REPO=https://github.com/notional-labs/composable-testnet.git
 COSMOVISOR=cosmovisor
 GENESIS=https://ss-t.banksy.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.banksy.nodestake.top/addrbook.json
-PORT=06
+PORT=07
 
 # Set Vars
 if [ ! $NODENAME ]; then

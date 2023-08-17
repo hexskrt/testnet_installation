@@ -26,7 +26,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/elys-network/elys
 GENESIS=https://ss-t.elys.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.elys.nodestake.top/addrbook.json
-PORT=08
+PORT=09
 
 # Set Vars
 if [ ! $NODENAME ]; then

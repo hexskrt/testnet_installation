@@ -20,13 +20,13 @@ WALLET=wallet
 BINARY=cascadiad
 CHAIN=cascadia_6102-1
 CASCADIA_FOLDER=.cascadiad
-VERSION=v0.1.4
+VERSION=v0.1.5
 DENOM=aCC
 REPO=https://github.com/CascadiaFoundation/cascadia.git
 COSMOVISOR=cosmovisor
 GENESIS=https://snapshots.kjnodes.com/cascadia-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/cascadia-testnet/addrbook.json
-PORT=04
+PORT=05
 
 # Set Vars
 if [ ! $NODENAME ]; then
