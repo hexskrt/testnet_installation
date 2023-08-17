@@ -14,5 +14,5 @@
 # Archieved
 |Project Name|Custom Port|Chain ID|Node Version|
 |------------|-----------|--------|------------|
-|**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable)**|NA|banksy-testnet-2|v3.0.4-testnet|
+|**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable/composable-2)**|NA|banksy-testnet-2|v3.0.4-testnet|
 |**[**Dymension**](https://github.com/hexskrt/testnet_installation/tree/main/Dymension)**|NA|35-C|v0.2.0-beta
