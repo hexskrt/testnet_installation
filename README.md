@@ -8,7 +8,7 @@
 |**[**Cascadia**](https://github.com/hexskrt/testnet_installation/tree/main/Cascadia)**|04|cascadia_6102-1|v0.1.4|
 |**[**Chain4Energy**](https://github.com/hexskrt/testnet_installation/tree/main/Chain4Energy)**|05|babajaga-1|v1.2.0|
 |**[**Composable**](https://github.com/hexskrt/testnet_installation/tree/main/Composable)**|06|banksy-testnet-3|v3.0.4-testnet|
-|**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|08|elystestnet-1|v0.8.5|
+|**[**Elys-Network**](https://github.com/hexskrt/testnet_installation/tree/main/Elys-Network)**|08|elystestnet-1|v0.9.0|
 |**[**Noria**](https://github.com/hexskrt/testnet_installation/tree/main/Noria)**|09|oasis-3|v1.3.0|
 
 # Archieved
