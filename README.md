@@ -14,4 +14,4 @@
 # Archieved
 |Project Name|Custom Port|Chain ID|Node Version|
 |------------|-----------|--------|------------|
-|**[**Dymension**](https://github.com/hexskrt/testnet_installation/tree/main/Dymension)**|07|35-C|v0.2.0-beta
+|**[**Dymension**](https://github.com/hexskrt/testnet_installation/tree/main/Dymension)**|NA|35-C|v0.2.0-beta
