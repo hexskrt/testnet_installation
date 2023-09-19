@@ -5,7 +5,7 @@
 # Entangle Protocol | Chain ID : entangle_33133-1
 
 ### Explorer:
->-  https://explorer.hexnodes.co/entangle-testmet
+>-  https://explorer.hexnodes.co/entangle-testnet
 
 ### Automatic Installer
 You can setup your Entangle Protocol fullnode in few minutes by using automated script below.
