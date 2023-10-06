@@ -26,7 +26,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/chain4energy/c4e-chain.git
 GENESIS=https://raw.githubusercontent.com/chain4energy/c4e-chains/main/babajaga-1/genesis.json
 ADDRBOOK=https://anode.team/C4E/test/addrbook.json
-PORT=06
+PORT=07
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -87,7 +87,7 @@ git clone $REPO
 cd $SOURCE
 git checkout $VERSION
 make build
-go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Prepare binaries for Cosmovisor
 mkdir -p $HOME/$C4E_FOLDER/$COSMOVISOR/genesis/bin

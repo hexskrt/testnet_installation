@@ -26,7 +26,7 @@ COSMOVISOR=cosmovisor
 REPO=https://github.com/noria-net/noria.git
 GENESIS=https://snapshots.kjnodes.com/noria-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/noria-testnet/addrbook.json
-PORT=10
+PORT=12
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -76,24 +76,19 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install make build-essential gcc git jq chrony lz4 -y
 
 # Install GO
-ver="1.20.5"
-cd $HOME
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
 sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-amd64.tar.gz"
-echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
-source ~/.bash_profile
-go version
+curl -Ls https://go.dev/dl/go1.20.5.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
+eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
-# Get testnet version of Elys
+# Get testnet version of Noria
 cd $HOME
 rm -rf $SOURCE
 git clone $REPO
 cd $SOURCE
 git checkout $VERSION
 make build
-go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Prepare binaries for Cosmovisor
 mkdir -p $HOME/$NOR_FOLDER/$COSMOVISOR/genesis/bin

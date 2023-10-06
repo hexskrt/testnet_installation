@@ -9,7 +9,7 @@ echo "       ██   ██ ██       ██ ██  ████   ██ �
 echo "      ███████ █████     ███   ██ ██  ██ ██    ██ ██   ██ █████   ███████"; 
 echo "     ██   ██ ██       ██ ██  ██  ██ ██ ██    ██ ██   ██ ██           ██"; 
 echo "    ██   ██ ███████ ██   ██ ██   ████  ██████  ██████  ███████ ███████";
-echo "Cosmovisor Automatic Installer for Composable | Chain ID : banksy-testnet-2";
+echo "Cosmovisor Automatic Installer for Composable | Chain ID : banksy-testnet-3";
 echo -e "\e[0m"
 
 sleep 1
@@ -17,16 +17,16 @@ sleep 1
 # Variable
 SOURCE=composable-testnet
 WALLET=wallet
-BINARY=banksyd
+BINARY=centaurid
 CHAIN=banksy-testnet-3
 COMP_FOLDER=.banksy
-VERSION=v2.3.5
-DENOM=upica
+VERSION=v6.0.1-ics
+DENOM=ppica
 REPO=https://github.com/notional-labs/composable-testnet.git
 COSMOVISOR=cosmovisor
-GENESIS=https://ss-t.composable.nodestake.top/genesis.json
-ADDRBOOK=https://ss-t.composable.nodestake.top/addrbook.json
-PORT=06
+GENESIS=https://ss-t.banksy.nodestake.top/genesis.json
+ADDRBOOK=https://ss-t.banksy.nodestake.top/addrbook.json
+PORT=08
 
 # Set Vars
 if [ ! $NODENAME ]; then
@@ -87,7 +87,7 @@ git clone $REPO
 cd $SOURCE
 git checkout $VERSION
 make build
-go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 # Prepare binaries for Cosmovisor
 mkdir -p $HOME/$COMP_FOLDER/$COSMOVISOR/genesis/bin
@@ -105,8 +105,8 @@ $BINARY config node tcp://localhost:${PORT}657
 $BINARY init $NODENAME --chain-id $CHAIN
 
 # Set peers and
-PEERS="$(curl -sS https://rpc-t.composable.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS=""
+PEERS="$(curl -sS https://rpc-t.banksy.nodestake.top/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
 sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/$COMP_FOLDER/config/config.toml
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$COMP_FOLDER/config/config.toml
 
@@ -129,13 +129,12 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/$COMP_FOLDER/config/app.toml
 
 # Set minimum gas price
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.001$DENOM\"/" $HOME/$COMP_FOLDER/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$COMP_FOLDER/config/app.toml
 
 # Enable snapshots
 sed -i -e "s/^snapshot-interval *=.*/snapshot-interval = \"2000\"/" $HOME/$COMP_FOLDER/config/app.toml
 $BINARY tendermint unsafe-reset-all --home $HOME/$COMP_FOLDER
-SNAP_NAME=$(curl -s https://ss-t.composable.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
-curl -o - -L https://ss-t.composable.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/$COMP_FOLDER
+curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/$COMP_FOLDER
 [[ -f $HOME/$COMP_FOLDER/data/upgrade-info.json ]] && cp $HOME/$COMP_FOLDER/data/upgrade-info.json $HOME/$COMP_FOLDER/cosmovisor/genesis/upgrade-info.json
 
 # Create Service
