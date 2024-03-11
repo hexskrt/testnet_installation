@@ -20,13 +20,13 @@ WALLET=wallet
 BINARY=elysd
 CHAIN=elystestnet-1
 ELYS_FOLDER=.elys
-VERSION=v0.14.0
+VERSION=v0.29.21
 DENOM=uelys
 COSMOVISOR=cosmovisor
 REPO=https://github.com/elys-network/elys
 GENESIS=https://ss-t.elys.nodestake.top/genesis.json
 ADDRBOOK=https://ss-t.elys.nodestake.top/addrbook.json
-PORT=10
+PORT=11
 
 # Set Vars
 if [ ! $NODENAME ]; then

@@ -25,7 +25,7 @@ REPO=https://github.com/dymensionxyz/dymension.git
 COSMOVISOR=cosmovisor
 GENESIS=https://snapshots.kjnodes.com/dymension-testnet/genesis.json
 ADDRBOOK=https://snapshots.kjnodes.com/dymension-testnet/addrbook.json
-PORT=09
+PORT=10
 
 # Set Vars
 if [ ! $NODENAME ]; then
