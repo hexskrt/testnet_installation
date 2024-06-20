@@ -20,7 +20,7 @@ WALLET=wallet
 BINARY=bcnad
 CHAIN=bitcanna-dev-1
 BCNA_FOLDER=.bcna
-VERSION=v3.0.2-rc1
+VERSION=v3.1.0-rc2
 DENOM=ubcna
 COSMOVISOR=cosmovisor
 REPO=https://github.com/BitCannaGlobal/bcna
@@ -112,8 +112,8 @@ curl -Ls $ADDRBOOK > $HOME/$BCNA_FOLDER/config/addrbook.json
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$DENOM\"/" $HOME/$BCNA_FOLDER/config/app.toml
 
 #Set Peers & Seeds
-PEERS="$(curl -sS https://rpc.bitcanna-dev.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
-SEEDS="24823f3d602136a213f9d93740193aed33de56a9@seeds.bitcanna-dev.hexnodes.co:31656"
+PEERS="$(curl -sS https://rpc.bitcanna-dev.hexnodes.one/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+SEEDS="9f7ebc84e78187421e637627bbf608a54040fb17@seeds.bitcanna-dev.hexnodes.one:04656"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/$BCNA_FOLDER/config/config.toml
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $HOME/$BCNA_FOLDER/config/config.toml
 
