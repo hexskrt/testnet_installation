@@ -5,7 +5,7 @@
 # Bitcanna Testnet | Chain ID : bitcanna-dev-1
 
 ### Explorer:
->-  https://explorer.hexnodes.co/bitcanna-testnet
+>-  [https://explorer.hexnodes.co/bitcanna-testnet](https://explorer.hexnodes.one/BITCANNA-TESTNET)
 
 ### Automatic Installer
 You can setup your Bitcanna fullnode in few minutes by using automated script below.
@@ -19,7 +19,7 @@ sudo systemctl stop bcnad
 cp $HOME/.bcna/data/priv_validator_state.json $HOME/.bcna/priv_validator_state.json.backup
 bcnad tendermint unsafe-reset-all --home $HOME/.bcna
 
-STATE_SYNC_RPC=https://rpc.bitcanna-dev.hexnodes.co:443
+STATE_SYNC_RPC=https://rpc.bitcanna-dev.hexnodes.one:443
 LATEST_HEIGHT=$(curl -s $STATE_SYNC_RPC/block | jq -r .result.block.header.height)
 SYNC_BLOCK_HEIGHT=$(($LATEST_HEIGHT - 2000))
 SYNC_BLOCK_HASH=$(curl -s "$STATE_SYNC_RPC/block?height=$SYNC_BLOCK_HEIGHT" | jq -r .result.block_id.hash)
@@ -39,7 +39,7 @@ sudo systemctl start bcnad && sudo journalctl -u bcnad -f --no-hostname -o cat
 
 ### Live Peers
 ```
-PEERS="$(curl -sS https://rpc.bitcanna-dev.hexnodes.co/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
+PEERS="$(curl -sS https://rpc.bitcanna-dev.hexnodes.one/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr)"' | awk -F ':' '{print $1":"$(NF)}' | sed -z 's|\n|,|g;s|.$||')"
 sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/.bcna/config/config.toml
 ```
 
